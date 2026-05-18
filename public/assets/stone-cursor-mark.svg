@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 260" role="img" aria-labelledby="title">
+  <title id="title">Stone cursor mark</title>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M74 38 74 212 113 170 145 236 181 219 149 157 206 157Z" fill="#d8d1c2" stroke="#2d2d2b" stroke-width="16"/>
+    <path d="M92 63v115l25-29 24 50 18-8-27-54 45 1Z" fill="#f0eadb" opacity=".62"/>
+    <path d="M80 199 112 154 141 206 145 236 113 170Z" fill="#8f8a7e" opacity=".55"/>
+    <path d="M116 64 149 157 206 157Z" fill="#bbb4a5" opacity=".52"/>
+    <path d="M96 102 120 95 135 108" stroke="#30302e" stroke-width="8"/>
+    <path d="M120 95 112 126" stroke="#30302e" stroke-width="8"/>
+    <path d="M144 178 157 194 153 215" stroke="#30302e" stroke-width="7"/>
+    <path d="M59 22 46 3" stroke="#a7e000" stroke-width="12"/>
+    <path d="M38 46 14 38" stroke="#a7e000" stroke-width="12"/>
+    <path d="M56 58 34 72" stroke="#a7e000" stroke-width="12"/>
+  </g>
+</svg>

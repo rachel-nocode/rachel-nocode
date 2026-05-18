@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import { contactEmail, kofiShopUrl, kofiUrl, socialLinks } from '../lib/content';
+
+const youtubeUrl = socialLinks.find((link) => link.label === 'YouTube')?.href ?? 'https://www.youtube.com/@rachelnocode';
+const xUrl = socialLinks.find((link) => link.label === 'X')?.href ?? 'https://x.com/rachelnocode';
+---
+
+<BaseLayout
+  title="Rachel noCode — AI templates, tutorials, and tiny tools"
+  description="Rachel noCode makes AI tutorials, no-code templates, and tiny tools for creators and builders."
+>
+  <main class="stage">
+    <section class="hero" aria-labelledby="page-title">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <span class="eyebrow">Rachel noCode</span>
+          <h1 id="page-title">AI templates, tiny tools, and no-code builds for real humans.</h1>
+          <p class="hero-desc">
+            I make practical YouTube tutorials, downloadable templates, and small AI-powered apps that help creators and builders ship faster without tech chaos.
+          </p>
+          <div class="hero-cta" aria-label="Primary links">
+            <a class="btn btn-primary" href={youtubeUrl} target="_blank" rel="noopener noreferrer">
+              <Icon name="youtube" size={18} />
+              Watch on YouTube
+            </a>
+            <a class="btn btn-kofi" href={kofiShopUrl} target="_blank" rel="noopener noreferrer">
+              <Icon name="kofi" size={18} />
+              Get templates on Ko-fi
+            </a>
+          </div>
+        </div>
+
+        <figure class="hero-card" aria-label="Rachel noCode photo">
+          <img class="hero-avatar" src="/assets/rachel-hero.jpg" alt="Black-and-white illustrated portrait of Rachel noCode." />
+          <figcaption>
+            <span>built with vibes + AI</span>
+            <strong>Rachel noCode</strong>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="folder-grid" aria-label="Rachel noCode links">
+      <article class="folder-card blue">
+        <span class="folder-tab">What I do</span>
+        <h2>YouTube + build notes</h2>
+        <p>Beginner-friendly AI workflows, vibe-coded apps, template walkthroughs, and honest experiments while I build in public.</p>
+        <a href={youtubeUrl} target="_blank" rel="noopener noreferrer">Open YouTube →</a>
+      </article>
+
+      <article class="folder-card yellow">
+        <span class="folder-tab">Templates + support</span>
+        <h2>Ko-fi shop</h2>
+        <p>Grab templates, prompt packs, mini tools, and support links. Ko-fi is the main home for everything I make right now.</p>
+        <div class="link-stack">
+          <a href={kofiShopUrl} target="_blank" rel="noopener noreferrer">Browse templates →</a>
+          <a href={kofiUrl} target="_blank" rel="noopener noreferrer">Support me →</a>
+        </div>
+      </article>
+
+      <article class="folder-card coral">
+        <span class="folder-tab">Follow</span>
+        <h2>X / Twitter</h2>
+        <p>Quick AI tool notes, build-in-public updates, template drops, and whatever I’m testing this week.</p>
+        <a href={xUrl} target="_blank" rel="noopener noreferrer">Follow on X →</a>
+      </article>
+    </section>
+
+    <footer class="contact-card" aria-labelledby="contact-title">
+      <span class="eyebrow">Contact</span>
+      <h2 id="contact-title">Want to reach me?</h2>
+      <a class="mail-link" href={`mailto:${contactEmail}`}>{contactEmail}</a>
+    </footer>
+  </main>
+</BaseLayout>
