@@ -2579,3 +2579,157 @@ a:focus-visible {
     padding: 56px 4px;
   }
 }
+
+/* ── Thank-you modal (post-checkout) ─────────────────────────── */
+.ty-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(6, 7, 5, 0.78);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: ty-fade 160ms ease-out;
+}
+
+.ty-modal {
+  position: relative;
+  width: min(440px, 100%);
+  overflow: hidden;
+  padding: 36px 32px 32px;
+  text-align: center;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+  animation: ty-pop 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ty-dot-grid {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 150px;
+  background-image: radial-gradient(rgba(182, 242, 74, 0.16) 1px, transparent 1px);
+  background-size: 18px 18px;
+  -webkit-mask-image: linear-gradient(#000, transparent);
+  mask-image: linear-gradient(#000, transparent);
+  pointer-events: none;
+}
+
+.ty-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  font-size: 13px;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: color 140ms ease, border-color 140ms ease;
+}
+
+.ty-close:hover {
+  color: var(--text);
+  border-color: var(--muted-2);
+}
+
+.ty-receipt {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 18px;
+  padding: 5px 11px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--green);
+  background: rgba(182, 242, 74, 0.1);
+  border: 1px solid rgba(182, 242, 74, 0.28);
+  border-radius: 999px;
+}
+
+.ty-icon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 18px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+}
+
+.ty-icon img {
+  width: 40px;
+  height: 40px;
+}
+
+.ty-modal h2 {
+  position: relative;
+  margin: 0 0 12px;
+  font-family: var(--font-display);
+  font-size: 26px;
+  line-height: 1.15;
+  color: var(--text);
+}
+
+.ty-modal p {
+  position: relative;
+  margin: 0 auto 10px;
+  max-width: 340px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.ty-modal p.ty-sub {
+  color: var(--muted-2);
+  font-size: 13px;
+}
+
+.ty-stars {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin: 16px 0 22px;
+  color: var(--muted-2);
+}
+
+.ty-stars .filled {
+  color: var(--green);
+  fill: var(--green);
+}
+
+.ty-btn {
+  position: relative;
+  width: 100%;
+  justify-content: center;
+}
+
+@keyframes ty-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes ty-pop {
+  from { opacity: 0; transform: translateY(12px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ty-overlay,
+  .ty-modal {
+    animation: none;
+  }
+}

@@ -1,4 +1,5 @@
 import {
+  useCallback,
   useEffect,
   useLayoutEffect,
   useMemo,
@@ -37,17 +38,6 @@ import './App.css'
 // Create a "pay what you want" product in the Polar dashboard, attach the
 // notarized .dmg as a downloadable benefit, generate a Checkout Link, paste here.
 const POLAR_CHECKOUT_URL = 'https://buy.polar.sh/polar_cl_TF2FMLN9mPYUxBtKhXSPZHJotGeO8ICDeFEA124wOvt'
-
-// Every download button routes through Polar checkout — the .dmg is never
-// served directly. Polar delivers the notarized build after checkout.
-async function startDownload(event: MouseEvent) {
-  event.preventDefault()
-  try {
-    await PolarEmbedCheckout.create(POLAR_CHECKOUT_URL, { theme: 'dark' })
-  } catch {
-    window.open(POLAR_CHECKOUT_URL, '_blank', 'noopener')
-  }
-}
 
 type Provider = {
   id: string
@@ -212,9 +202,32 @@ function App() {
   const [demoView, setDemoView] = useState<'usage' | 'stream'>('usage')
   const [now, setNow] = useState(() => new Date())
   const [demoRight, setDemoRight] = useState<number | null>(null)
+  const [showThankYou, setShowThankYou] = useState(false)
 
   const heroRef = useRef<HTMLElement>(null)
   const pillRef = useRef<HTMLButtonElement>(null)
+
+  // Every download button routes through Polar checkout — the .dmg is never
+  // served directly. Polar delivers the notarized build after checkout. When
+  // the purchase confirms, show the thank-you modal so buyers know to go check
+  // their email for the download link instead of staring at the landing page.
+  const startDownload = useCallback(async (event: MouseEvent) => {
+    event.preventDefault()
+    try {
+      const checkout = await PolarEmbedCheckout.create(POLAR_CHECKOUT_URL, { theme: 'dark' })
+      checkout.addEventListener('success', (successEvent) => {
+        // Stop Polar's built-in redirect (fires when the checkout link has a
+        // success URL set) so the buyer lands on our modal instead of being
+        // bounced away. Then close the Polar iframe ourselves — it sits at
+        // max z-index, so our modal would otherwise be hidden behind it.
+        successEvent.preventDefault()
+        checkout.close()
+        setShowThankYou(true)
+      })
+    } catch {
+      window.open(POLAR_CHECKOUT_URL, '_blank', 'noopener')
+    }
+  }, [])
 
   useEffect(() => {
     const timer = window.setInterval(() => setSpendTick((tick) => tick + 1), 1200)
@@ -226,6 +239,16 @@ function App() {
     const timer = window.setInterval(() => setNow(new Date()), 10000)
     return () => window.clearInterval(timer)
   }, [])
+
+  // Close the thank-you modal on Escape.
+  useEffect(() => {
+    if (!showThankYou) return
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setShowThankYou(false)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [showThankYou])
 
   // Anchor the demo popover so its right edge lines up under the tray pill.
   // Re-runs on resize and whenever the clock changes (which shifts the pill).
@@ -718,6 +741,59 @@ function App() {
           </a>
         </div>
       </footer>
+
+      {showThankYou ? (
+        <div
+          className="ty-overlay"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="ty-title"
+          onClick={() => setShowThankYou(false)}
+        >
+          <div className="ty-modal" onClick={(event) => event.stopPropagation()}>
+            <div className="ty-dot-grid" aria-hidden="true" />
+            <button
+              type="button"
+              className="ty-close"
+              aria-label="Close"
+              onClick={() => setShowThankYou(false)}
+            >
+              ✕
+            </button>
+            <span className="ty-receipt">
+              <Flame size={13} aria-hidden="true" />
+              receipt printed
+            </span>
+            <span className="ty-icon">
+              <img src="/maxxtoken/icon-1.png" alt="" />
+            </span>
+            <h2 id="ty-title">You absolute tokenmaxxer.</h2>
+            <p>
+              Thank you. Your download link is sprinting to your inbox right now —
+              go check your email (peek in spam too, links love to hide there).
+            </p>
+            <p className="ty-sub">
+              Install MaxxToken and go spend the tokens you already paid for.
+              Big AI is not getting this one for free.
+            </p>
+            <span className="ty-stars" aria-hidden="true">
+              <Star size={16} className="filled" />
+              <Star size={16} className="filled" />
+              <Star size={16} className="filled" />
+              <Star size={16} className="filled" />
+              <Star size={16} className="filled" />
+            </span>
+            <button
+              type="button"
+              className="btn-primary lg ty-btn"
+              onClick={() => setShowThankYou(false)}
+            >
+              Off to my inbox
+              <ArrowRight size={18} aria-hidden="true" />
+            </button>
+          </div>
+        </div>
+      ) : null}
     </div>
   )
 }
