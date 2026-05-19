@@ -2392,6 +2392,13 @@ a:focus-visible {
   }
 }
 
+/* Phones: drop the in-bar menu links so the brand + tray pill fit. */
+@media (max-width: 540px) {
+  .osm-menu {
+    display: none;
+  }
+}
+
 /* ---------- Menu-bar-anchored demo ---------- */
 .osm-tray.maxx {
   cursor: pointer;

@@ -36,7 +36,7 @@ import './App.css'
 // Polar pay-what-you-want checkout link.
 // Create a "pay what you want" product in the Polar dashboard, attach the
 // notarized .dmg as a downloadable benefit, generate a Checkout Link, paste here.
-const POLAR_CHECKOUT_URL = 'https://buy.polar.sh/polar_cl_LqRTIQr3ZHy4GLeodnuiSjD61ukYadR646MiS3wbNIn'
+const POLAR_CHECKOUT_URL = 'https://buy.polar.sh/polar_cl_TF2FMLN9mPYUxBtKhXSPZHJotGeO8ICDeFEA124wOvt'
 
 // Every download button routes through Polar checkout — the .dmg is never
 // served directly. Polar delivers the notarized build after checkout.
