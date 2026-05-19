@@ -1,0 +1,485 @@
+---
+// Shared layout for Tap Tally pages on rachelnocode.com
+interface Props {
+  title: string;
+  description: string;
+  variant?: 'text' | 'promo';
+  ogImage?: string;
+}
+const { title, description, variant = 'text', ogImage = '/taptallypro/og-v2.png' } = Astro.props;
+const site = 'https://rachelnocode.com';
+const canonicalUrl = new URL(Astro.url.pathname, site).href;
+const absoluteOgImage = new URL(ogImage, site).href;
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonicalUrl} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={absoluteOgImage} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonicalUrl} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={absoluteOgImage} />
+  <link rel="icon" type="image/png" href="/taptallypro/icon.png" />
+  <style is:global>
+    :root {
+      --bg: #F4EFE8;
+      --surface: #FBF7F1;
+      --accent: #C2553A;
+      --text: #1F1F1F;
+      --muted: #7A736B;
+      --divider: #D8D2C9;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 17px/1.6 -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    main {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+    body.promo main { max-width: 1080px; }
+    a { color: var(--text); text-decoration: underline; text-decoration-color: var(--divider); }
+    a:hover { text-decoration-color: var(--accent); }
+    .site-nav {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 22px 24px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      font-size: 14px;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text);
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .brand-mark {
+      width: 28px;
+      height: 28px;
+      border-radius: 3px;
+      background: url("/assets/stone-cursor-mark.svg") center/cover no-repeat;
+      box-shadow: 0 0 0 1px rgba(31,31,31,0.16), 0 0 18px rgba(194,85,58,0.14);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+    }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      padding: 8px 13px;
+      border-radius: 999px;
+      background: var(--text);
+      color: var(--surface) !important;
+    }
+    h1, h2, h3 {
+      font-family: ui-serif, Georgia, "New York", serif;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin: 0;
+    }
+    h1 { font-size: 56px; line-height: 1.05; }
+    h2 { font-size: 28px; margin: 48px 0 14px; }
+    h3 { font-size: 19px; margin: 24px 0 6px; }
+    p { margin: 0 0 18px; }
+    small, .mono {
+      font: 12px/1.5 ui-monospace, "SF Mono", Menlo, monospace;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .eyebrow {
+      font: 13px/1.5 ui-monospace, "SF Mono", Menlo, monospace;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 0 0 8px;
+    }
+    .dot { color: var(--accent); }
+    .hr { border: 0; border-top: 1px solid var(--divider); margin: 36px 0; }
+    .muted { color: var(--muted); }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--accent);
+      color: #fff !important;
+      text-decoration: none;
+      padding: 14px 22px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 16px;
+    }
+    .button:hover { opacity: 0.92; }
+    footer {
+      margin-top: 80px;
+      padding-top: 24px;
+      border-top: 1px solid var(--divider);
+      font-size: 13px;
+      color: var(--muted);
+    }
+    footer a { color: var(--muted); }
+    .features { list-style: none; margin: 0; padding: 0; }
+    .features li {
+      display: flex;
+      gap: 24px;
+      padding: 22px 0;
+      border-bottom: 1px solid var(--divider);
+    }
+    .features li:first-child { border-top: 1px solid var(--divider); }
+    .features .num {
+      font: 14px/1.5 ui-monospace, "SF Mono", Menlo, monospace;
+      color: var(--accent);
+      flex: 0 0 28px;
+    }
+    .features .title { font-size: 17px; font-weight: 600; margin: 0 0 4px; }
+    .features .body { color: var(--muted); margin: 0; }
+    .faq { margin-top: 8px; }
+    .faq details {
+      border-bottom: 1px solid var(--divider);
+      padding: 18px 0;
+    }
+    .faq details:first-of-type { border-top: 1px solid var(--divider); }
+    .faq summary {
+      font-weight: 600;
+      font-size: 17px;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary::after { content: "+"; color: var(--accent); font-weight: 400; font-size: 22px; }
+    .faq details[open] summary::after { content: "−"; }
+    .faq p { margin: 12px 0 0; color: var(--muted); }
+    .hero {
+      min-height: clamp(620px, calc(100svh - 94px), 780px);
+      display: grid;
+      grid-template-columns: minmax(0, 0.92fr) minmax(340px, 0.78fr);
+      gap: 56px;
+      align-items: center;
+      padding: 26px 0 36px;
+    }
+    .hero-copy { max-width: 560px; }
+    .hero img.icon {
+      width: 96px;
+      height: 96px;
+      border-radius: 22px;
+      display: block;
+      margin: 0 0 24px;
+    }
+    .hero h1 { font-size: clamp(68px, 8vw, 106px); line-height: 0.95; margin: 0 0 18px; }
+    .hero p.lede {
+      font-family: ui-serif, Georgia, "New York", serif;
+      font-style: italic;
+      font-size: clamp(24px, 2.35vw, 34px);
+      line-height: 1.25;
+      color: var(--muted);
+      margin: 0;
+      max-width: 620px;
+    }
+    .hero .cta { margin-top: 32px; }
+    .phone-showcase {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+    }
+    /* Featured-on badges marquee — small, right-to-left infinite scroll */
+    .badges-marquee {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      margin: 28px 0 8px;
+      padding: 10px 0;
+      -webkit-mask-image: linear-gradient(90deg, transparent, black 6%, black 94%, transparent);
+              mask-image: linear-gradient(90deg, transparent, black 6%, black 94%, transparent);
+    }
+    .badges-track {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      width: max-content;
+      animation: badges-scroll 24s linear infinite;
+    }
+    .badges-track:hover { animation-play-state: paused; }
+    @keyframes badges-scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    .badge-item {
+      display: inline-flex;
+      align-items: center;
+      flex: none;
+      text-decoration: none;
+      transition: opacity .15s ease;
+    }
+    .badge-item:hover { opacity: 0.85; }
+    .badge-item img {
+      display: block;
+      height: 40px;
+      width: auto;
+    }
+    /* Tiny Startups custom badge — height-matched to other badges */
+    .ts-badge {
+      gap: 10px;
+      padding: 6px 14px 6px 8px;
+      border-radius: 10px;
+      font-family: 'Inter', system-ui, sans-serif;
+      background: linear-gradient(#fff, #fff) padding-box,
+                  linear-gradient(90deg, #3525E6, #D81FE0, #22B8F0) border-box;
+      border: 2px solid transparent;
+      color: #0E0B1F;
+      height: 40px;
+    }
+    .ts-badge svg {
+      width: 24px;
+      height: 24px;
+      flex: none;
+    }
+    .ts-badge .ts-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.05;
+    }
+    .ts-badge .ts-eyebrow {
+      font-family: ui-monospace, SFMono-Regular, monospace;
+      font-size: 7.5px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #6A6585;
+    }
+    .ts-badge .ts-name {
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .badges-track { animation: none; }
+    }
+    .iphone-frame {
+      position: relative;
+      width: min(370px, 34vw);
+      aspect-ratio: 390 / 844;
+      padding: 11px;
+      border-radius: 54px;
+      background:
+        linear-gradient(145deg, #2c2925, #050505 54%, #3a332d);
+      box-shadow:
+        0 42px 90px rgba(84, 60, 44, 0.26),
+        0 16px 32px rgba(31, 31, 31, 0.18),
+        inset 0 0 0 1px rgba(255,255,255,0.16),
+        inset 0 0 0 3px rgba(0,0,0,0.85);
+    }
+    .iphone-frame::before {
+      content: "";
+      position: absolute;
+      z-index: 2;
+      top: 18px;
+      left: 50%;
+      width: 114px;
+      height: 34px;
+      transform: translateX(-50%);
+      border-radius: 999px;
+      background: #050505;
+      box-shadow: inset 0 1px 1px rgba(255,255,255,0.08);
+    }
+    .iphone-screen {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      border-radius: 44px;
+      background: var(--surface);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.22);
+    }
+    .iphone-screen img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .shots {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+      margin: 48px 0;
+    }
+    .shots img {
+      width: 100%;
+      height: auto;
+      border-radius: 22px;
+      background: var(--surface);
+      border: 1px solid var(--divider);
+    }
+    .press-hero {
+      padding-top: 72px;
+      padding-bottom: 12px;
+    }
+    .press-hero h1 {
+      font-size: clamp(48px, 8vw, 82px);
+      margin-bottom: 18px;
+    }
+    .press-hero p {
+      max-width: 640px;
+      color: var(--muted);
+      font-size: 20px;
+    }
+    .asset-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 14px;
+      margin: 24px 0 36px;
+    }
+    .asset-card {
+      min-height: 150px;
+      padding: 20px;
+      border: 1px solid var(--divider);
+      border-radius: 18px;
+      background: rgba(251, 247, 241, 0.64);
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .asset-card:hover { border-color: rgba(194,85,58,0.55); }
+    .asset-card img {
+      width: 58px;
+      height: 58px;
+      border-radius: 14px;
+      margin-bottom: 20px;
+    }
+    .asset-card strong {
+      display: block;
+      margin-bottom: 4px;
+      font-weight: 700;
+    }
+    .asset-card span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .link-list {
+      list-style: none;
+      padding: 0;
+      margin: 10px 0 0;
+      border-top: 1px solid var(--divider);
+    }
+    .link-list li {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--divider);
+    }
+    .link-list a { word-break: break-word; }
+    @media (max-width: 600px) {
+      h1 { font-size: 44px; }
+      .hero h1 { font-size: 56px; }
+      main { padding: 32px 18px 64px; }
+      .site-nav { padding: 18px 18px 0; align-items: flex-start; }
+      .nav-links { gap: 14px; flex-wrap: wrap; justify-content: flex-end; }
+      .nav-links a { font-size: 13px; }
+    }
+    @media (max-width: 860px) {
+      .hero {
+        min-height: auto;
+        grid-template-columns: 1fr;
+        gap: 34px;
+        text-align: center;
+      }
+      .hero-copy { max-width: none; }
+      .hero img.icon { margin: 0 auto 24px; }
+      .hero p.lede { margin: 0 auto; }
+      .phone-showcase { margin: 0 auto; }
+      .iphone-frame { width: min(360px, 88vw); }
+    }
+    @media (max-width: 600px) {
+      .iphone-frame {
+        width: min(330px, 90vw);
+        border-radius: 46px;
+        padding: 9px;
+      }
+      .iphone-screen { border-radius: 38px; }
+      .iphone-frame::before { top: 15px; width: 96px; height: 29px; }
+    }
+  </style>
+</head>
+<body class={variant}>
+  <nav class="site-nav" aria-label="Tap Tally navigation">
+    <a class="brand" href="/">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span>Rachel noCode</span>
+    </a>
+    <div class="nav-links">
+      <a href="/taptallypro">Tap Tally</a>
+      <a href="/taptallypro/press">Press</a>
+      <a href="/taptallypro/privacy">Privacy</a>
+      <a href="/taptallypro/support">Support</a>
+    </div>
+  </nav>
+  <slot />
+  <script is:inline>
+    const appStoreLinks = {
+      producthunt: "https://apps.apple.com/us/app/tap-tally-click-counter/id6767036962?ct=producthunt&mt=8",
+      hn: "https://apps.apple.com/us/app/tap-tally-click-counter/id6767036962?ct=showhn&mt=8",
+      showhn: "https://apps.apple.com/us/app/tap-tally-click-counter/id6767036962?ct=showhn&mt=8",
+      "hacker-news": "https://apps.apple.com/us/app/tap-tally-click-counter/id6767036962?ct=showhn&mt=8",
+      hackernews: "https://apps.apple.com/us/app/tap-tally-click-counter/id6767036962?ct=showhn&mt=8",
+      sp: "https://apps.apple.com/us/app/tap-tally-click-counter/id6767036962?ct=reddit-sideproject&mt=8",
+      sideproject: "https://apps.apple.com/us/app/tap-tally-click-counter/id6767036962?ct=reddit-sideproject&mt=8",
+      reddit: "https://apps.apple.com/us/app/tap-tally-click-counter/id6767036962?ct=reddit-sideproject&mt=8",
+      "reddit-sideproject": "https://apps.apple.com/us/app/tap-tally-click-counter/id6767036962?ct=reddit-sideproject&mt=8",
+      ih: "https://apps.apple.com/us/app/tap-tally-click-counter/id6767036962?ct=indiehackers&mt=8",
+      indiehackers: "https://apps.apple.com/us/app/tap-tally-click-counter/id6767036962?ct=indiehackers&mt=8",
+      x: "https://apps.apple.com/us/app/tap-tally-click-counter/id6767036962?ct=twitter&mt=8",
+      twitter: "https://apps.apple.com/us/app/tap-tally-click-counter/id6767036962?ct=twitter&mt=8"
+    };
+    const params = new URLSearchParams(window.location.search);
+    const rawSource = params.get("source") || params.get("ref") || params.get("utm_source") || params.get("ct");
+    const normalizedSource = rawSource?.toLowerCase().replace(/[^a-z0-9-]/g, "");
+    const referrer = document.referrer.toLowerCase();
+    const inferredSource =
+      normalizedSource ||
+      (referrer.includes("producthunt") && "producthunt") ||
+      (referrer.includes("news.ycombinator") && "hn") ||
+      (referrer.includes("reddit") && "reddit") ||
+      (referrer.includes("indiehackers") && "ih") ||
+      ((referrer.includes("twitter") || referrer.includes("x.com")) && "x");
+    const trackedUrl = appStoreLinks[inferredSource];
+    if (trackedUrl) {
+      document.querySelectorAll('a[href^="https://apps.apple.com/us/app/tap-tally-click-counter/"]').forEach((link) => {
+        link.href = trackedUrl;
+      });
+    }
+  </script>
+</body>
+</html>

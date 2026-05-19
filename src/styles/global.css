@@ -266,6 +266,104 @@ h2 {
   justify-items: start;
 }
 
+.apps {
+  margin-top: 70px;
+  text-align: center;
+}
+
+.app-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  max-width: 720px;
+  margin: 22px auto 0;
+}
+
+.app-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 28px 22px 24px;
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  text-decoration: none;
+  color: var(--text);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.app-chip:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.app-chip--tap {
+  border-color: #ff8a3d;
+  animation: glow-orange 2.4s ease-in-out infinite;
+}
+
+.app-chip--maxx {
+  border-color: #57c98a;
+  animation: glow-green 2.4s ease-in-out infinite;
+}
+
+.app-chip--tap:hover,
+.app-chip--maxx:hover { animation-play-state: paused; }
+
+@keyframes glow-orange {
+  0%, 100% {
+    border-color: #ffb07a;
+    box-shadow: var(--shadow), 0 0 0 1px rgba(255, 138, 61, .25), 0 0 16px -4px rgba(255, 138, 61, .45);
+  }
+  50% {
+    border-color: #ff8a3d;
+    box-shadow: var(--shadow), 0 0 0 1px rgba(255, 138, 61, .6), 0 0 30px -2px rgba(255, 138, 61, .8);
+  }
+}
+
+@keyframes glow-green {
+  0%, 100% {
+    border-color: #8fdcae;
+    box-shadow: var(--shadow), 0 0 0 1px rgba(87, 201, 138, .25), 0 0 16px -4px rgba(87, 201, 138, .45);
+  }
+  50% {
+    border-color: #57c98a;
+    box-shadow: var(--shadow), 0 0 0 1px rgba(87, 201, 138, .6), 0 0 30px -2px rgba(87, 201, 138, .8);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-chip--tap,
+  .app-chip--maxx { animation: none; }
+}
+
+.app-chip img {
+  width: 92px;
+  height: 92px;
+  margin-bottom: 12px;
+  border-radius: 21px;
+  box-shadow: 0 8px 18px rgba(45, 31, 26, .18);
+}
+
+.app-name {
+  font-size: 21px;
+  font-weight: 900;
+  letter-spacing: -.03em;
+}
+
+.app-tag {
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.app-chip:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
+
 .contact-card {
   max-width: 780px;
   margin: 74px auto 0;
@@ -330,5 +428,9 @@ h2 {
   .hero-card figcaption {
     flex-direction: column;
     gap: 2px;
+  }
+
+  .app-row {
+    grid-template-columns: 1fr;
   }
 }

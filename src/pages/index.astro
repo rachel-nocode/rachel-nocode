@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon from '../components/Icon.astro';
-import { contactEmail, kofiShopUrl, kofiUrl, socialLinks } from '../lib/content';
+import { kofiShopUrl, kofiUrl, socialLinks } from '../lib/content';
 
 const youtubeUrl = socialLinks.find((link) => link.label === 'YouTube')?.href ?? 'https://www.youtube.com/@rachelnocode';
 const xUrl = socialLinks.find((link) => link.label === 'X')?.href ?? 'https://x.com/rachelnocode';
@@ -68,10 +68,27 @@ const xUrl = socialLinks.find((link) => link.label === 'X')?.href ?? 'https://x.
       </article>
     </section>
 
+    <section class="apps" aria-labelledby="apps-title">
+      <span class="eyebrow">My apps</span>
+      <h2 id="apps-title">Tiny apps I built</h2>
+      <div class="app-row">
+        <a class="app-chip app-chip--tap" href="/taptallypro">
+          <img src="/taptallypro/icon.png" alt="Tap Tally app icon" />
+          <span class="app-name">Tap Tally</span>
+          <span class="app-tag">Pocket multi-counter for iPhone</span>
+        </a>
+        <a class="app-chip app-chip--maxx" href="/maxxtoken">
+          <img src="/maxxtoken/icon-1.png" alt="MaxxToken app icon" />
+          <span class="app-name">MaxxToken</span>
+          <span class="app-tag">AI token tracker for your Mac</span>
+        </a>
+      </div>
+    </section>
+
     <footer class="contact-card" aria-labelledby="contact-title">
       <span class="eyebrow">Contact</span>
       <h2 id="contact-title">Want to reach me?</h2>
-      <a class="mail-link" href={`mailto:${contactEmail}`}>{contactEmail}</a>
+      <a class="mail-link" href={xUrl} target="_blank" rel="noopener noreferrer">DM me on Twitter →</a>
     </footer>
   </main>
 </BaseLayout>

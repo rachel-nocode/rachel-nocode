@@ -1,0 +1,65 @@
+---
+// Public URL: /maxxtoken
+import App from '../../maxxtoken/App.tsx';
+
+const site = 'https://rachelnocode.com';
+const canonicalUrl = `${site}/maxxtoken`;
+const ogImage = `${site}/maxxtoken/icon-1.png`;
+const title = 'MaxxToken: AI Token Tracker Menu Bar for Mac';
+const description =
+  'MaxxToken counts your AI subscription usage across Claude, ChatGPT, Codex, Gemini and Kimi, shows the dollars you are wasting, and gives you ideas to tokenmaxx before reset.';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta name="theme-color" content="#0a0b09" />
+    <link rel="icon" type="image/png" href="/maxxtoken/icon-1.png" />
+    <link rel="apple-touch-icon" href="/maxxtoken/icon-1.png" />
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'SoftwareApplication',
+        name: 'MaxxToken',
+        applicationCategory: 'ProductivityApplication',
+        operatingSystem: 'macOS',
+        url: canonicalUrl,
+        image: ogImage,
+        description,
+        offers: {
+          '@type': 'Offer',
+          price: '0',
+          priceCurrency: 'USD',
+          description: 'Pay what you want, one-time',
+        },
+      })}
+    />
+  </head>
+  <body>
+    <App client:load />
+  </body>
+</html>

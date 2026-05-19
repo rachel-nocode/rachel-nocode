@@ -1,0 +1,73 @@
+---
+// Public URL: /taptallypro/press
+import TapTallyProLayout from '../../layouts/TapTallyProLayout.astro';
+
+const appStoreLinks = [
+  ['Product Hunt', 'https://apps.apple.com/us/app/tap-tally-click-counter/id6767036962?ct=producthunt&mt=8'],
+  ['Hacker News', 'https://apps.apple.com/us/app/tap-tally-click-counter/id6767036962?ct=showhn&mt=8'],
+  ['r/SideProject', 'https://apps.apple.com/us/app/tap-tally-click-counter/id6767036962?ct=reddit-sideproject&mt=8'],
+  ['Indie Hackers', 'https://apps.apple.com/us/app/tap-tally-click-counter/id6767036962?ct=indiehackers&mt=8'],
+  ['X', 'https://apps.apple.com/us/app/tap-tally-click-counter/id6767036962?ct=twitter&mt=8'],
+];
+---
+<TapTallyProLayout
+  title="Tap Tally Press Kit"
+  description="Press assets, screenshots, contact, and launch links for Tap Tally — Click Counter."
+>
+  <main>
+    <section class="press-hero">
+      <p class="eyebrow">Press Kit</p>
+      <h1>Tap Tally<span class="dot">.</span></h1>
+      <p>Tap Tally is a refined multi-counter for the things that matter, and the ones that don't. Reps. Coffee. Stitches. Headcount. Birds in the garden.</p>
+    </section>
+
+    <h2>Assets</h2>
+    <div class="asset-grid">
+      <a class="asset-card" href="/taptallypro/icon.png" download>
+        <span>
+          <img src="/taptallypro/icon.png" alt="" />
+          <strong>App icon</strong>
+          <span>1024 x 1024 PNG</span>
+        </span>
+      </a>
+      <a class="asset-card" href="/taptallypro/tap-tally-screenshots.zip" download>
+        <span>
+          <strong>Screenshots zip</strong>
+          <span>Four App Store screenshots</span>
+        </span>
+      </a>
+      <a class="asset-card" href="/taptallypro/tap-tally-press-kit.zip" download>
+        <span>
+          <strong>Full press kit</strong>
+          <span>Icon, screenshots, and OG image</span>
+        </span>
+      </a>
+      <a class="asset-card" href="/taptallypro/og.png" download>
+        <span>
+          <strong>Social preview</strong>
+          <span>1200 x 630 PNG</span>
+        </span>
+      </a>
+    </div>
+
+    <h2>Short Copy</h2>
+    <p>Tap Tally is a quiet, ad-free iPhone app for counting anything quickly. Tap a card to count up. Long-press to count down. No ads. No subscription. One quiet purchase.</p>
+
+    <h2>Launch Links</h2>
+    <ul class="link-list">
+      {appStoreLinks.map(([label, href]) => (
+        <li>
+          <strong>{label}</strong>
+          <a href={href}>{href}</a>
+        </li>
+      ))}
+    </ul>
+
+    <h2>Contact</h2>
+    <p><a href="mailto:witchaudiodev@gmail.com">witchaudiodev@gmail.com</a></p>
+
+    <footer>
+      <p>© 2026 Rachel noCode · <a href="/taptallypro">Tap Tally</a> · <a href="/taptallypro/privacy">Privacy</a> · <a href="/taptallypro/support">Support</a></p>
+    </footer>
+  </main>
+</TapTallyProLayout>
