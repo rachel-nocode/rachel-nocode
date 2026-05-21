@@ -199,7 +199,7 @@ export default function App() {
               audio saved
             </span>
             <span className="sma-ty-icon">
-              <img src="/savemyaudio/icon.svg" alt="" />
+              <img src="/savemyaudio/icon.png" alt="" />
             </span>
             <h2 id="sma-ty-title">Your audio is on the way.</h2>
             <p>
