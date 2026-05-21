@@ -1,0 +1,65 @@
+---
+// Public URL: /savemyaudio
+import App from '../../savemyaudio/App.tsx';
+
+const site = 'https://rachelnocode.com';
+const canonicalUrl = `${site}/savemyaudio`;
+const ogImage = `${site}/savemyaudio/icon.svg`;
+const title = 'Save my Audio — Fix bad video audio on your Mac';
+const description =
+  'Drop any video. Save my Audio lifts the levels, kills the rumble, cleans the noise, and exports a ready-to-post file — all on your Mac. 100% local, pay what you want.';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta name="theme-color" content="#050c08" />
+    <link rel="icon" type="image/svg+xml" href="/savemyaudio/icon.svg" />
+    <link rel="apple-touch-icon" href="/savemyaudio/icon.svg" />
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'SoftwareApplication',
+        name: 'Save my Audio',
+        applicationCategory: 'MultimediaApplication',
+        operatingSystem: 'macOS',
+        url: canonicalUrl,
+        image: ogImage,
+        description,
+        offers: {
+          '@type': 'Offer',
+          price: '0',
+          priceCurrency: 'USD',
+          description: 'Pay what you want, one-time',
+        },
+      })}
+    />
+  </head>
+  <body>
+    <App client:load />
+  </body>
+</html>

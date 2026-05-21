@@ -273,9 +273,9 @@ h2 {
 
 .app-row {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 22px;
-  max-width: 720px;
+  max-width: 1040px;
   margin: 22px auto 0;
 }
 
@@ -309,8 +309,14 @@ h2 {
   animation: glow-green 2.4s ease-in-out infinite;
 }
 
+.app-chip--save {
+  border-color: #3b8af8;
+  animation: glow-blue 2.4s ease-in-out infinite;
+}
+
 .app-chip--tap:hover,
-.app-chip--maxx:hover { animation-play-state: paused; }
+.app-chip--maxx:hover,
+.app-chip--save:hover { animation-play-state: paused; }
 
 @keyframes glow-orange {
   0%, 100% {
@@ -334,9 +340,21 @@ h2 {
   }
 }
 
+@keyframes glow-blue {
+  0%, 100% {
+    border-color: #7eb3fb;
+    box-shadow: var(--shadow), 0 0 0 1px rgba(59, 138, 248, .25), 0 0 16px -4px rgba(59, 138, 248, .45);
+  }
+  50% {
+    border-color: #3b8af8;
+    box-shadow: var(--shadow), 0 0 0 1px rgba(59, 138, 248, .6), 0 0 30px -2px rgba(59, 138, 248, .8);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .app-chip--tap,
-  .app-chip--maxx { animation: none; }
+  .app-chip--maxx,
+  .app-chip--save { animation: none; }
 }
 
 .app-chip img {
@@ -409,6 +427,11 @@ h2 {
   }
 
   .folder-card { min-height: auto; }
+
+  .app-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 720px;
+  }
 }
 
 @media (max-width: 520px) {
