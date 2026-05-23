@@ -1015,6 +1015,7 @@ a:focus-visible {
 }
 
 .pd-num.green { color: var(--green); }
+.pd-num.amber { color: #f0a030; }
 .pd-num.red { color: var(--red); }
 .pd-num.mono { color: var(--text); font-size: 19px; }
 
@@ -1383,6 +1384,53 @@ a:focus-visible {
   min-height: 0;
   overflow-y: auto;
   padding-bottom: 12px;
+  scrollbar-width: thin;
+  scrollbar-color: #3a3d31 transparent;
+}
+
+.pd-list::-webkit-scrollbar {
+  width: 7px;
+}
+
+.pd-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.pd-list::-webkit-scrollbar-thumb {
+  background: #3a3d31;
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background-clip: padding-box;
+}
+
+.pd-list::-webkit-scrollbar-thumb:hover {
+  background: #4d5243;
+  background-clip: padding-box;
+}
+
+.stream-stage {
+  scrollbar-width: thin;
+  scrollbar-color: #3a3d31 transparent;
+}
+
+.stream-stage::-webkit-scrollbar {
+  width: 7px;
+}
+
+.stream-stage::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.stream-stage::-webkit-scrollbar-thumb {
+  background: #3a3d31;
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background-clip: padding-box;
+}
+
+.stream-stage::-webkit-scrollbar-thumb:hover {
+  background: #4d5243;
+  background-clip: padding-box;
 }
 
 .pd-prov {
@@ -1475,6 +1523,28 @@ a:focus-visible {
   border-top: 1px solid var(--line);
   color: var(--muted);
   font-size: 11px;
+}
+
+.pd-pop-totals {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.pd-pop-totals strong,
+.pd-pop-totals span {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 8px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: #10110e;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text);
 }
 
 .pd-pop-foot button {

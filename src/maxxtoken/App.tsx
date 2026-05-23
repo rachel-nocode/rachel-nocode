@@ -63,14 +63,14 @@ const providers: Provider[] = [
     name: 'Claude',
     plan: 'Max 20x',
     monthly: 200,
-    baseUsedPct: 2,
-    drain: 0.35,
+    baseUsedPct: 24,
+    drain: 0.12,
     countdown: '08h 57m 36s',
     accent: '#ff7d4d',
     icon: Sparkles,
     windows: [
-      { label: 'Session', kind: '5-hour window', usedPct: 2, reset: '03h 17m 35s' },
-      { label: 'Weekly', kind: '7-day window', usedPct: 1, reset: '08h 57m 36s' },
+      { label: 'Session', kind: '5-hour window', usedPct: 11, reset: '03h 17m 35s' },
+      { label: 'Weekly', kind: '7-day window', usedPct: 24, reset: '08h 57m 36s' },
       { label: 'Sonnet', kind: '7-day window', usedPct: 0, reset: 'resets —' },
     ],
   },
@@ -79,14 +79,14 @@ const providers: Provider[] = [
     name: 'Codex',
     plan: 'Pro Plan',
     monthly: 30,
-    baseUsedPct: 0,
-    drain: 0.5,
+    baseUsedPct: 1,
+    drain: 0.08,
     countdown: '02h 56m 13s',
     accent: '#e6e6e6',
     icon: Box,
     windows: [
-      { label: 'Session', kind: '5-hour window', usedPct: 0, reset: '02h 56m 13s' },
-      { label: 'Weekly', kind: '7-day window', usedPct: 0, reset: '2d 05h 37m' },
+      { label: 'Session', kind: '5-hour window', usedPct: 1, reset: '02h 56m 13s' },
+      { label: 'Weekly', kind: '7-day window', usedPct: 1, reset: '2d 05h 37m' },
     ],
   },
   {
@@ -94,14 +94,14 @@ const providers: Provider[] = [
     name: 'Kimi',
     plan: 'Ultra',
     monthly: 200,
-    baseUsedPct: 20,
-    drain: 0.28,
+    baseUsedPct: 3,
+    drain: 0.1,
     countdown: '1d 09h 37m',
     accent: '#cfd2d6',
     icon: Box,
     windows: [
-      { label: 'Session', kind: '5-hour window', usedPct: 8, reset: '01h 14m 08s' },
-      { label: 'Weekly', kind: '7-day window', usedPct: 20, reset: '1d 09h 37m' },
+      { label: 'Session', kind: '5-hour window', usedPct: 2, reset: '01h 14m 08s' },
+      { label: 'Weekly', kind: '7-day window', usedPct: 3, reset: '1d 09h 37m' },
     ],
   },
   {
@@ -109,14 +109,14 @@ const providers: Provider[] = [
     name: 'ChatGPT',
     plan: 'Plus Plan',
     monthly: 20,
-    baseUsedPct: 21,
-    drain: 0.25,
+    baseUsedPct: 0,
+    drain: 0.05,
     countdown: '2d 05h 37m',
     accent: '#19c37d',
     icon: MessageCircle,
     windows: [
       { label: 'Session', kind: '5-hour window', usedPct: 0, reset: '02h 56m 13s' },
-      { label: 'Weekly', kind: '7-day window', usedPct: 21, reset: '2d 05h 37m' },
+      { label: 'Weekly', kind: '7-day window', usedPct: 0, reset: '2d 05h 37m' },
     ],
   },
   {
@@ -124,13 +124,13 @@ const providers: Provider[] = [
     name: 'Gemini',
     plan: 'Advanced',
     monthly: 84,
-    baseUsedPct: 12,
-    drain: 0.32,
+    baseUsedPct: 36,
+    drain: 0.15,
     countdown: '16d left',
     accent: '#4f8cff',
     icon: Sparkles,
     windows: [
-      { label: 'Cycle', kind: 'month window', usedPct: 12, reset: '16d 02h' },
+      { label: 'Cycle', kind: 'month window', usedPct: 36, reset: '16d 02h' },
     ],
   },
 ]
@@ -317,6 +317,7 @@ function App() {
       spent,
       left,
       leftPct: Math.round((left / monthly) * 100),
+      spentPct: Math.round((spent / monthly) * 100),
     }
   }, [animatedProviders])
 
@@ -442,22 +443,22 @@ function App() {
                   <section className="pd-receipt">
                     <div className="pd-stats">
                       <div className="pd-stat">
-                        <div className="pd-num green">{money(totals.left)}</div>
-                        <div className="pd-label">left to use</div>
+                        <div className="pd-num green">{money(totals.spent)}</div>
+                        <div className="pd-label">spent value</div>
                       </div>
                       <div className="pd-divider" />
                       <div className="pd-stat">
-                        <div className="pd-num red">{money(totals.spent)}</div>
-                        <div className="pd-label">used this cycle</div>
+                        <div className="pd-num amber">{money(totals.left)}</div>
+                        <div className="pd-label">left to maxx</div>
                       </div>
                       <div className="pd-divider" />
                       <div className="pd-stat">
-                        <div className="pd-num mono">31d 11h</div>
-                        <div className="pd-label">time left to use</div>
+                        <div className="pd-num mono">38d 20h</div>
+                        <div className="pd-label">used</div>
                       </div>
                     </div>
                     <div className="pd-meter">
-                      <span className="pd-meter-fill" style={{ width: `${totals.leftPct}%` }} />
+                      <span className="pd-meter-fill" style={{ width: `${totals.spentPct}%` }} />
                     </div>
                     <div className="pd-foot">
                       <span className="pd-stars" aria-hidden="true">
@@ -504,14 +505,14 @@ function App() {
                               </span>
                             </span>
                             <span className="pd-prov-pct">
-                              <span className="pd-pct-num">{provider.leftPct}%</span>
-                              <span className="pd-pct-label">left</span>
+                              <span className="pd-pct-num">{Math.round(provider.usedPct)}%</span>
+                              <span className="pd-pct-label">used</span>
                             </span>
                           </div>
                           <span className="pd-prov-meter" aria-hidden="true">
                             <span
                               className="pd-prov-meter-fill"
-                              style={{ width: `${provider.leftPct}%` }}
+                              style={{ width: `${provider.usedPct}%` }}
                             />
                           </span>
                           <div className="pd-window-list">
@@ -522,11 +523,11 @@ function App() {
                                   <small>{window.kind}</small>
                                 </div>
                                 <span className="pd-window-bar" aria-hidden="true">
-                                  <span style={{ width: `${window.leftPct}%` }} />
+                                  <span style={{ width: `${window.usedPct}%` }} />
                                 </span>
                                 <div className="pd-window-foot">
                                   <span>
-                                    <strong>{window.leftPct}%</strong> left
+                                    <strong>{Math.round(window.usedPct)}%</strong> used
                                   </span>
                                   <span>{window.reset}</span>
                                 </div>
@@ -535,10 +536,11 @@ function App() {
                           </div>
                           <div className="pd-prov-bottom">
                             <span>
-                              left <strong>{moneyExact(provider.left)}</strong> /{' '}
-                              {money(provider.monthly)}
+                              <strong>{moneyExact(provider.spent)}</strong> spent
                             </span>
-                            <span className="pd-burn">{moneyExact(provider.spent)} used</span>
+                            <span>
+                              <strong>{moneyExact(provider.left)}</strong> left to maxx
+                            </span>
                           </div>
                         </button>
                       )
@@ -546,9 +548,12 @@ function App() {
                   </div>
 
                   <footer className="pd-pop-foot">
-                    <span>
-                      {money(totals.left)} / {money(totals.monthly)} left across{' '}
-                      {animatedProviders.length} plans
+                    <span className="pd-pop-totals">
+                      <strong>LEFT {money(totals.left)}</strong>
+                      <strong>SPENT {money(totals.spent)}</strong>
+                      <span>
+                        PLANS {animatedProviders.length} · 1e
+                      </span>
                     </span>
                     <button type="button" onClick={() => setDemoOpen(false)}>
                       Done
@@ -587,7 +592,7 @@ function App() {
                         bullets, and a next-build prompt.
                       </p>
                       <div className="stream-meter">
-                        <span style={{ width: `${100 - spendStep * 3}%` }} />
+                        <span style={{ width: `${Math.min(100, spendStep * 3)}%` }} />
                       </div>
                       <div className="stream-meta">
                         <span>Complexity ●●○</span>
