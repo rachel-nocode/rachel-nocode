@@ -8,7 +8,7 @@ from pathlib import Path
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "public" / "maxxtoken" / "og-v3.png"
+OUT = ROOT / "public" / "maxxtoken" / "og-v4.png"
 ICON = ROOT / "public" / "maxxtoken" / "icon-1.png"
 SCREENSHOT = ROOT / "public" / "maxxtoken" / "app-screenshot.png"
 

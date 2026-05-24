@@ -1,8 +1,9 @@
 ---
-// Public URL: /maxxtoken
+// Fresh share URL for X/Twitter cache busting — same page, new card scrape key.
 import App from '../../maxxtoken/App.tsx';
 
 const site = 'https://www.rachelnocode.com';
+const pageUrl = `${site}/maxxtoken/share`;
 const canonicalUrl = `${site}/maxxtoken`;
 const ogImage = `${site}/maxxtoken/og-v4.png`;
 const title = 'MaxxToken — Menu Bar App to Track & Maxx Your AI Tokens';
@@ -25,7 +26,7 @@ const description =
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:url" content={pageUrl} />
     <meta property="og:site_name" content="rachelnocode" />
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:secure_url" content={ogImage} />
