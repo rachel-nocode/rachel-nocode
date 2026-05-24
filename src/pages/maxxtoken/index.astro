@@ -2,12 +2,12 @@
 // Public URL: /maxxtoken
 import App from '../../maxxtoken/App.tsx';
 
-const site = 'https://rachelnocode.com';
+const site = 'https://www.rachelnocode.com';
 const canonicalUrl = `${site}/maxxtoken`;
-const ogImage = `${site}/maxxtoken/og.png?v=2`;
-const title = 'MaxxToken: AI Token Tracker Menu Bar for Mac';
+const ogImage = `${site}/maxxtoken/og-v3.png`;
+const title = 'MaxxToken — Menu Bar App to Track & Maxx Your AI Tokens';
 const description =
-  'MaxxToken counts your AI subscription usage across Claude, ChatGPT, Codex, Gemini and Kimi, shows the dollars you are wasting, and gives you ideas to tokenmaxx before reset.';
+  'Track Claude, ChatGPT, Cursor & Kimi from your Mac menu bar. See dollars spent, dollars left, and get build ideas before reset.';
 ---
 
 <!doctype html>
@@ -26,15 +26,21 @@ const description =
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content="rachelnocode" />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:secure_url" content={ogImage} />
+    <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="MaxxToken — menu bar AI token tracker for Mac" />
+    <meta property="og:image:alt" content="MaxxToken menu bar app showing AI subscription usage, spent value, and left to maxx" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@rachelnocode" />
+    <meta name="twitter:creator" content="@rachelnocode" />
+    <meta name="twitter:domain" content="www.rachelnocode.com" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
-    <meta name="twitter:image:alt" content="MaxxToken — menu bar AI token tracker for Mac" />
+    <meta name="twitter:image:alt" content="MaxxToken menu bar app showing AI subscription usage, spent value, and left to maxx" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
