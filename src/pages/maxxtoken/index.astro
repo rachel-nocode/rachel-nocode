@@ -4,7 +4,7 @@ import App from '../../maxxtoken/App.tsx';
 
 const site = 'https://rachelnocode.com';
 const canonicalUrl = `${site}/maxxtoken`;
-const ogImage = `${site}/maxxtoken/icon-1.png`;
+const ogImage = `${site}/maxxtoken/og.png?v=2`;
 const title = 'MaxxToken: AI Token Tracker Menu Bar for Mac';
 const description =
   'MaxxToken counts your AI subscription usage across Claude, ChatGPT, Codex, Gemini and Kimi, shows the dollars you are wasting, and gives you ideas to tokenmaxx before reset.';
@@ -27,10 +27,14 @@ const description =
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="MaxxToken — menu bar AI token tracker for Mac" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content="MaxxToken — menu bar AI token tracker for Mac" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
