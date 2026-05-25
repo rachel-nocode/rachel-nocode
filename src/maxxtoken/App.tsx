@@ -27,12 +27,12 @@ import {
   Target,
   TerminalSquare,
   TrendingUp,
-  Wand2,
   Wifi,
   Zap,
   type LucideIcon,
 } from 'lucide-react'
 import './App.css'
+import { Freebies } from './Freebies'
 
 // Polar pay-what-you-want checkout link.
 // Create a "pay what you want" product in the Polar dashboard, attach the
@@ -174,14 +174,92 @@ const ideas: Idea[] = [
   },
 ]
 
-const stackTools = [
-  { name: 'Claude', tag: 'Web', icon: Sparkles, accent: '#ff7d4d' },
-  { name: 'Codex', tag: 'Web', icon: Box, accent: '#e6e6e6' },
-  { name: 'Cursor', tag: 'Desktop', icon: Box, accent: '#cfd2d6' },
-  { name: 'ChatGPT', tag: 'Web', icon: MessageCircle, accent: '#19c37d' },
-  { name: 'Gemini', tag: 'Web', icon: Sparkles, accent: '#4f8cff' },
-  { name: 'Perplexity', tag: 'Web', icon: Sparkles, accent: '#4cc3c9' },
+const stackProviders = [
+  'Claude',
+  'ChatGPT',
+  'OpenAI API',
+  'Azure OpenAI',
+  'Cursor',
+  'Copilot',
+  'Windsurf',
+  'Kiro',
+  'OpenCode',
+  'OpenCode Go',
+  'Alibaba',
+  'Alibaba Token Plan',
+  'Augment',
+  'JetBrains AI',
+  'Warp',
+  'ElevenLabs',
+  'Kilo',
+  'Kimi',
+  'Moonshot / Kimi API',
+  'Kimi K2',
+  'Doubao',
+  'Grok',
+  'Groq',
+  'Gemini',
+  'OpenRouter',
+  'Perplexity',
+  'Mistral',
+  'Codebuff',
+  'Command Code',
+  'Crof',
+  'Venice',
+  'DeepSeek',
+  'Deepgram',
+  'StepFun',
+  'LLM Proxy',
+  'Ollama',
+  'Abacus AI',
+  'Amp',
+  'Droid / Factory',
+  'Antigravity',
+  'MiniMax',
+  'Manus',
+  'Vertex AI',
+  'Synthetic',
+  'Xiaomi MiMo',
+  'AWS Bedrock',
+  'z.ai',
+  'T3 Chat',
+] as const
+
+const stackAccents = [
+  '#ff7d4d',
+  '#19c37d',
+  '#4f8cff',
+  '#4cc3c9',
+  '#b6f24a',
+  '#f0a030',
+  '#e6e6e6',
+  '#cfd2d6',
+  '#a78bfa',
+  '#f472b6',
 ]
+
+function StackMarquee() {
+  const track = [...stackProviders, ...stackProviders]
+
+  return (
+    <div className="stack-marquee" aria-label="Supported AI providers">
+      <div className="stack-marquee-fade stack-marquee-fade-left" aria-hidden="true" />
+      <div className="stack-marquee-fade stack-marquee-fade-right" aria-hidden="true" />
+      <div className="stack-marquee-track">
+        {track.map((name, index) => (
+          <span
+            className="stack-chip"
+            key={`${name}-${index}`}
+            style={{ '--accent': stackAccents[index % stackAccents.length] } as CSSProperties}
+          >
+            <span className="stack-chip-dot" aria-hidden="true" />
+            {name}
+          </span>
+        ))}
+      </div>
+    </div>
+  )
+}
 
 function money(value: number) {
   return `$${Math.round(value).toLocaleString('en-US')}`
@@ -203,6 +281,9 @@ function App() {
   const [now, setNow] = useState(() => new Date())
   const [demoRight, setDemoRight] = useState<number | null>(null)
   const [showThankYou, setShowThankYou] = useState(false)
+  const [pageView, setPageView] = useState<'landing' | 'freebies'>(() =>
+    typeof window !== 'undefined' && window.location.hash === '#freebies' ? 'freebies' : 'landing',
+  )
 
   const heroRef = useRef<HTMLElement>(null)
   const pillRef = useRef<HTMLButtonElement>(null)
@@ -227,6 +308,33 @@ function App() {
     } catch {
       window.open(POLAR_CHECKOUT_URL, '_blank', 'noopener')
     }
+  }, [])
+
+  const goLanding = useCallback((hash?: string) => {
+    setPageView('landing')
+    if (hash) {
+      window.history.replaceState(null, '', hash)
+      window.requestAnimationFrame(() => {
+        document.querySelector(hash)?.scrollIntoView({ behavior: 'smooth' })
+      })
+      return
+    }
+    window.history.replaceState(null, '', '#top')
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }, [])
+
+  const goFreebies = useCallback(() => {
+    setPageView('freebies')
+    window.history.replaceState(null, '', '#freebies')
+    window.scrollTo({ top: 0 })
+  }, [])
+
+  useEffect(() => {
+    const syncView = () => {
+      setPageView(window.location.hash === '#freebies' ? 'freebies' : 'landing')
+    }
+    window.addEventListener('hashchange', syncView)
+    return () => window.removeEventListener('hashchange', syncView)
   }, [])
 
   useEffect(() => {
@@ -330,14 +438,57 @@ function App() {
       <nav className="os-menubar" aria-label="Main">
         <div className="osm-inner">
           <div className="osm-left">
-            <a className="osm-brand" href="#top">
+            <a
+              className="osm-brand"
+              href="#top"
+              onClick={(event) => {
+                event.preventDefault()
+                goLanding()
+              }}
+            >
               <img src="/maxxtoken/icon-1.png" alt="" />
               <span>MaxxToken</span>
             </a>
-            <a className="osm-menu" href="#product">Demo</a>
-            <a className="osm-menu" href="#nudges">Missions</a>
-            <a className="osm-menu" href="#what-is-tokenmaxxing">Tokenmaxxing</a>
-            <a className="osm-menu" href="https://x.com/rachelnocode">Contact</a>
+            <a
+              className="osm-menu"
+              href="#product"
+              onClick={(event) => {
+                event.preventDefault()
+                goLanding('#product')
+              }}
+            >
+              Demo
+            </a>
+            <a
+              className="osm-menu"
+              href="#nudges"
+              onClick={(event) => {
+                event.preventDefault()
+                goLanding('#nudges')
+              }}
+            >
+              Missions
+            </a>
+            <a
+              className="osm-menu"
+              href="#what-is-tokenmaxxing"
+              onClick={(event) => {
+                event.preventDefault()
+                goLanding('#what-is-tokenmaxxing')
+              }}
+            >
+              Tokenmaxxing
+            </a>
+            <button
+              type="button"
+              className={`osm-menu osm-menu-btn ${pageView === 'freebies' ? 'is-active' : ''}`}
+              onClick={goFreebies}
+            >
+              Freebies
+            </button>
+            <a className="osm-menu" href="https://x.com/rachelnocode">
+              Contact
+            </a>
           </div>
           <div className="osm-right">
             <Wifi className="osm-glyph" size={15} aria-hidden="true" />
@@ -359,6 +510,10 @@ function App() {
         </div>
       </nav>
 
+      {pageView === 'freebies' ? (
+        <Freebies onDownload={startDownload} />
+      ) : (
+        <>
       <section className="hero" ref={heroRef}>
         <div className="hero-copy">
           <span className="badge">
@@ -680,34 +835,8 @@ function App() {
 
       <section className="stack" id="pricing">
         <h2>Your stack</h2>
-        <div className="stack-row">
-          {stackTools.map((tool) => {
-            const Icon = tool.icon
-            return (
-              <div className="stack-chip" key={tool.name}>
-                <span
-                  className="stack-icon"
-                  style={{ '--accent': tool.accent } as CSSProperties}
-                >
-                  <Icon size={16} aria-hidden="true" />
-                </span>
-                <span className="stack-name">
-                  <strong>{tool.name}</strong>
-                  <small>{tool.tag}</small>
-                </span>
-              </div>
-            )
-          })}
-          <div className="stack-chip soon">
-            <span className="stack-icon dots" aria-hidden="true">
-              <Wand2 size={16} />
-            </span>
-            <span className="stack-name">
-              <strong>More</strong>
-              <small>Coming soon</small>
-            </span>
-          </div>
-        </div>
+        <p className="stack-lede">48 providers tracked — and counting.</p>
+        <StackMarquee />
       </section>
 
       <section className="viral-loop" id="start">
@@ -735,10 +864,39 @@ function App() {
           <p>The menu bar app for tokenmaxxing your AI subscriptions.</p>
         </div>
         <nav className="footer-nav">
-          <a href="#product">Demo</a>
-          <a href="#nudges">Missions</a>
-          <a href="#what-is-tokenmaxxing">Tokenmaxxing</a>
-          <a href={POLAR_CHECKOUT_URL} onClick={startDownload}>Download</a>
+          <a
+            href="#product"
+            onClick={(event) => {
+              event.preventDefault()
+              goLanding('#product')
+            }}
+          >
+            Demo
+          </a>
+          <a
+            href="#nudges"
+            onClick={(event) => {
+              event.preventDefault()
+              goLanding('#nudges')
+            }}
+          >
+            Missions
+          </a>
+          <a
+            href="#what-is-tokenmaxxing"
+            onClick={(event) => {
+              event.preventDefault()
+              goLanding('#what-is-tokenmaxxing')
+            }}
+          >
+            Tokenmaxxing
+          </a>
+          <button type="button" className="footer-link-btn" onClick={goFreebies}>
+            Freebies
+          </button>
+          <a href={POLAR_CHECKOUT_URL} onClick={startDownload}>
+            Download
+          </a>
         </nav>
         <div className="footer-social">
           <a href="https://x.com/rachelnocode" aria-label="Rachel on X">
@@ -746,6 +904,8 @@ function App() {
           </a>
         </div>
       </footer>
+        </>
+      )}
 
       {showThankYou ? (
         <div
