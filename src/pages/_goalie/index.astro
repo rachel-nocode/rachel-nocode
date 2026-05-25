@@ -68,11 +68,23 @@ const description =
       </div>
 
       <article class="shot-panel" style="margin-bottom: 28px;">
-        <img
-          src="/goalie/screenshot-home.png"
-          alt="Goalie home screen showing trend signals, goal dial, and today's factory floor"
-          loading="lazy"
-        />
+        <picture>
+          <source
+            type="image/webp"
+            srcset="/goalie/screenshot-home.webp 1024w, /goalie/screenshot-home@2x.webp 2048w"
+            sizes="(min-width: 900px) 980px, 100vw"
+          />
+          <img
+            src="/goalie/screenshot-home.png"
+            srcset="/goalie/screenshot-home.png 1024w, /goalie/screenshot-home@2x.png 2048w"
+            sizes="(min-width: 900px) 980px, 100vw"
+            width="1024"
+            height="671"
+            alt="Goalie home screen showing trend signals, goal dial, and today's factory floor"
+            loading="lazy"
+            decoding="async"
+          />
+        </picture>
         <div class="callout callout--home">
           <strong>Today's goal batch</strong>
           <p>Refresh live signals, dial the wildness from Normal to Crazy, and filter by SEO, ASO, or SaaS.</p>
@@ -80,11 +92,23 @@ const description =
       </article>
 
       <article class="shot-panel" style="margin-bottom: 28px;">
-        <img
-          src="/goalie/screenshot-goals.png"
-          alt="Goalie goal cards with scores, starter prompts, and start buttons"
-          loading="lazy"
-        />
+        <picture>
+          <source
+            type="image/webp"
+            srcset="/goalie/screenshot-goals.webp 1024w, /goalie/screenshot-goals@2x.webp 2048w"
+            sizes="(min-width: 900px) 980px, 100vw"
+          />
+          <img
+            src="/goalie/screenshot-goals.png"
+            srcset="/goalie/screenshot-goals.png 1024w, /goalie/screenshot-goals@2x.png 2048w"
+            sizes="(min-width: 900px) 980px, 100vw"
+            width="1024"
+            height="696"
+            alt="Goalie goal cards with scores, starter prompts, and start buttons"
+            loading="lazy"
+            decoding="async"
+          />
+        </picture>
         <div class="callout callout--goals">
           <strong>Build-ready cards</strong>
           <p>Every goal ships with context, urgency, and a starter prompt — bookmark favorites or mark them done.</p>
@@ -92,11 +116,23 @@ const description =
       </article>
 
       <article class="shot-panel">
-        <img
-          src="/goalie/screenshot-build.png"
-          alt="Goalie build screen showing Claude Code progress and project folder"
-          loading="lazy"
-        />
+        <picture>
+          <source
+            type="image/webp"
+            srcset="/goalie/screenshot-build.webp 1024w, /goalie/screenshot-build@2x.webp 2048w"
+            sizes="(min-width: 900px) 980px, 100vw"
+          />
+          <img
+            src="/goalie/screenshot-build.png"
+            srcset="/goalie/screenshot-build.png 1024w, /goalie/screenshot-build@2x.png 2048w"
+            sizes="(min-width: 900px) 980px, 100vw"
+            width="1024"
+            height="979"
+            alt="Goalie build screen showing Claude Code progress and project folder"
+            loading="lazy"
+            decoding="async"
+          />
+        </picture>
         <div class="callout callout--build">
           <strong>Local build handoff</strong>
           <p>Goalie creates the project folder, starts your agent, and opens the build when it is ready.</p>

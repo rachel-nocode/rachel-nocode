@@ -458,8 +458,16 @@ const absoluteOgImage = new URL(ogImage, site).href;
     box-shadow: var(--shadow);
   }
 
+  .shot-panel picture {
+    display: block;
+    max-width: 1024px;
+    margin: 0 auto;
+  }
+
   .shot-panel img {
+    display: block;
     width: 100%;
+    height: auto;
     border: 2px solid rgba(17, 17, 17, 0.08);
     border-radius: calc(var(--radius-md) + 4px);
   }
