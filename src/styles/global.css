@@ -314,9 +314,15 @@ h2 {
   animation: glow-blue 2.4s ease-in-out infinite;
 }
 
+.app-chip--goalie {
+  border-color: #7ec9a8;
+  animation: glow-mint 2.4s ease-in-out infinite;
+}
+
 .app-chip--tap:hover,
 .app-chip--maxx:hover,
-.app-chip--save:hover { animation-play-state: paused; }
+.app-chip--save:hover,
+.app-chip--goalie:hover { animation-play-state: paused; }
 
 @keyframes glow-orange {
   0%, 100% {
@@ -351,10 +357,22 @@ h2 {
   }
 }
 
+@keyframes glow-mint {
+  0%, 100% {
+    border-color: #a8dfc4;
+    box-shadow: var(--shadow), 0 0 0 1px rgba(126, 201, 168, .25), 0 0 16px -4px rgba(126, 201, 168, .45);
+  }
+  50% {
+    border-color: #7ec9a8;
+    box-shadow: var(--shadow), 0 0 0 1px rgba(126, 201, 168, .6), 0 0 30px -2px rgba(126, 201, 168, .8);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .app-chip--tap,
   .app-chip--maxx,
-  .app-chip--save { animation: none; }
+  .app-chip--save,
+  .app-chip--goalie { animation: none; }
 }
 
 .app-chip img {
