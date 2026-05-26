@@ -39,7 +39,7 @@ My **Ko-fi shop** is the home for everything I make — and a lot of it is **fre
 | App | What it does | |
 |-----|-------------|--|
 | **Tap Tally** | Pocket multi-counter for iPhone — reps, coffee, headcount, birds | [rachelnocode.com/taptallypro](https://rachelnocode.com/taptallypro) |
-| **MaxxToken** | AI token tracker menu bar for Mac — see the dollars you're wasting | [rachelnocode.com/maxxtoken](https://rachelnocode.com/maxxtoken) |
+| **MaxxToken** | AI token tracker menu bar for Mac — see the dollars you're wasting | [maxxtoken.app](https://maxxtoken.app) |
 
 ---
 

@@ -95,7 +95,7 @@ export function buildReceiptShareText(leftTotal: number, usedPct: number) {
       `Rare W: I'm actually using my subs. Still flexing the ${amount} receipt because tokenmaxxing is a lifestyle 🧾`,
       `Not donating to the reset for once. ${amount} left and we're cooking. maxxtoken receipt attached ⚡`,
     ]
-    return `${lines[seed % lines.length]}\n\nrachelnocode.com/maxxtoken`
+    return `${lines[seed % lines.length]}\n\nmaxxtoken.app`
   }
 
   if (usedPct >= 45) {
@@ -103,7 +103,7 @@ export function buildReceiptShareText(leftTotal: number, usedPct: number) {
       `Big AI got ${amount} from me this cycle. Not great, not terrible. Next reset I'm tokenmaxxing harder 🧾`,
       `Half my stack resets soon and I still left ${amount} on the table. Mid maxx at best. Receipt:`,
     ]
-    return `${lines[seed % lines.length]}\n\nrachelnocode.com/maxxtoken`
+    return `${lines[seed % lines.length]}\n\nmaxxtoken.app`
   }
 
   const lines = [
@@ -112,7 +112,7 @@ export function buildReceiptShareText(leftTotal: number, usedPct: number) {
     `Not me funding Big AI's GPU budget at ${usedPct}% usage while ${amount} expires in 48h. Embarrassing. Tokenmaxxing arc starts now ⚡`,
     `I didn't "forget to use Claude." I straight up wired ${amount} to Big AI this cycle. Here's the receipt. Next time I maxx before reset.`,
   ]
-  return `${lines[seed % lines.length]}\n\nrachelnocode.com/maxxtoken`
+  return `${lines[seed % lines.length]}\n\nmaxxtoken.app`
 }
 
 export function buildMissionShareText(
@@ -128,7 +128,7 @@ export function buildMissionShareText(
     `POV: about to let ${amount} on ${providerName} evaporate at reset. MaxxToken handed me one job instead:`,
   ]
 
-  return `${openers[seed % openers.length]} ${mission}\n\nrachelnocode.com/maxxtoken`
+  return `${openers[seed % openers.length]} ${mission}\n\nmaxxtoken.app`
 }
 
 function moneyRound(value: number) {

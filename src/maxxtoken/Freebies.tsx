@@ -254,7 +254,7 @@ export function Freebies({ onDownload }: FreebiesProps) {
 
                   <footer className="receipt-foot">
                     <p>Stop donating to Big AI.</p>
-                    <p className="receipt-cta">Maxx before reset → rachelnocode.com/maxxtoken</p>
+                    <p className="receipt-cta">Maxx before reset → maxxtoken.app</p>
                   </footer>
                 </div>
                 <div className="receipt-tear" aria-hidden="true" />
