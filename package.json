@@ -16,6 +16,7 @@
     "@polar-sh/checkout": "^0.2.1",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
+    "@vercel/functions": "^3.6.0",
     "astro": "^5.15.4",
     "html-to-image": "^1.11.13",
     "lucide-react": "^1.16.0",
