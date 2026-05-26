@@ -2,8 +2,15 @@ import { rewrite } from '@vercel/functions';
 
 const MAXX_HOST = 'maxxtoken.app';
 
+/** Site-root assets Astro and shared public files — must not get /maxxtoken prefixed. */
+const PASSTHROUGH_PREFIXES = ['/_astro/', '/assets/'];
+
 function isMaxxHost(hostname: string) {
   return hostname === MAXX_HOST || hostname === `www.${MAXX_HOST}`;
+}
+
+function isPassthroughAsset(pathname: string) {
+  return PASSTHROUGH_PREFIXES.some((prefix) => pathname.startsWith(prefix));
 }
 
 export default function middleware(request: Request) {
@@ -17,6 +24,10 @@ export default function middleware(request: Request) {
   if (hostname === `www.${MAXX_HOST}`) {
     url.hostname = MAXX_HOST;
     return Response.redirect(url.toString(), 301);
+  }
+
+  if (isPassthroughAsset(pathname)) {
+    return;
   }
 
   if (pathname === '/' || pathname === '') {
