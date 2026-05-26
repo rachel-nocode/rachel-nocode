@@ -7,7 +7,8 @@
     "dev": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "astro check",
+    "og:maxxtoken": "npm run build && node scripts/capture-maxxtoken-og.mjs"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
@@ -21,5 +22,8 @@
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
     "typescript": "^5.9.3"
+  },
+  "devDependencies": {
+    "playwright": "^1.60.0"
   }
 }
