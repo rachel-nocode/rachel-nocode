@@ -2041,30 +2041,85 @@ a:focus-visible {
   padding: 20px 4px 90px;
 }
 
+.viral-loop-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  max-width: 920px;
+  width: 100%;
+}
+
+.viral-footnote {
+  margin: 0;
+  flex-basis: auto;
+}
+
 .viral-card {
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
-  gap: 18px;
+  gap: 18px 22px;
   border: 1px solid #3c4a26;
   border-radius: 18px;
   background: linear-gradient(135deg, #14160f, #0d0f0b);
-  padding: 18px;
+  padding: 18px 20px;
   margin: 0 auto;
+  max-width: 920px;
 }
 
-.viral-card img {
+.viral-card-copy {
+  min-width: 0;
+}
+
+.dl-platform-icons {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.dl-platform-icons img {
+  display: block;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.viral-downloads {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.viral-downloads .btn-primary {
+  justify-content: center;
+  min-width: 210px;
+  white-space: nowrap;
+}
+
+.footer-dl {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.footer-dl:hover {
+  color: var(--text);
+}
+
+.viral-card > img {
   width: 62px;
   height: 62px;
   border-radius: 15px;
 }
 
-.viral-card strong,
-.viral-card span {
+.viral-card-copy strong,
+.viral-card-copy span {
   display: block;
 }
 
-.viral-card span {
+.viral-card-copy span {
   color: var(--muted);
   font-size: 13px;
   margin-top: 3px;
@@ -2184,6 +2239,7 @@ a:focus-visible {
 /* ---------- Footer ---------- */
 .footer {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   border-top: 1px solid var(--line);
@@ -2230,6 +2286,25 @@ a:focus-visible {
 .footer-social a:hover {
   color: var(--text);
   border-color: #3a3d31;
+}
+
+.footer-icon-credits {
+  flex-basis: 100%;
+  margin: 4px 0 0;
+  font-size: 10px;
+  line-height: 1.4;
+  color: #5a5f52;
+  text-align: center;
+}
+
+.footer-icon-credits a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.footer-icon-credits a:hover {
+  color: var(--muted);
+  text-decoration: underline;
 }
 
 /* ---------- Responsive ---------- */
@@ -2388,6 +2463,11 @@ a:focus-visible {
     grid-template-columns: 1fr;
   }
 
+  .viral-downloads {
+    width: 100%;
+    min-width: 0;
+  }
+
   .footer-nav {
     flex-wrap: wrap;
     gap: 14px;
@@ -2467,6 +2547,9 @@ a:focus-visible {
 }
 
 .osm-download {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   color: var(--green);
   text-decoration: none;
   font-weight: 600;

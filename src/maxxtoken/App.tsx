@@ -33,11 +33,7 @@ import {
 } from 'lucide-react'
 import './App.css'
 import { Freebies } from './Freebies'
-
-// Polar pay-what-you-want checkout link.
-// Create a "pay what you want" product in the Polar dashboard, attach the
-// notarized .dmg as a downloadable benefit, generate a Checkout Link, paste here.
-const POLAR_CHECKOUT_URL = 'https://buy.polar.sh/polar_cl_TF2FMLN9mPYUxBtKhXSPZHJotGeO8ICDeFEA124wOvt'
+import { POLAR_CHECKOUT_URL, PolarDownloadButton } from './PolarDownloadButton'
 
 type Provider = {
   id: string
@@ -494,9 +490,7 @@ function App() {
             <Wifi className="osm-glyph" size={15} aria-hidden="true" />
             <Search className="osm-glyph" size={15} aria-hidden="true" />
             <span className="osm-clock">{clockLabel}</span>
-            <a className="osm-download" href={POLAR_CHECKOUT_URL} onClick={startDownload}>
-              Download for Mac
-            </a>
+            <PolarDownloadButton onClick={startDownload} className="osm-download" showIcons={false} />
             <button
               type="button"
               ref={pillRef}
@@ -527,10 +521,7 @@ function App() {
             MaxxToken shows the dollars you have left and turns them into work before the timer runs out.
           </p>
           <div className="hero-actions">
-            <a className="btn-primary lg" href={POLAR_CHECKOUT_URL} onClick={startDownload}>
-              Download for Mac
-              <ArrowRight size={18} aria-hidden="true" />
-            </a>
+            <PolarDownloadButton onClick={startDownload} className="btn-primary lg" iconSize={16} />
             <a className="btn-outline lg" href="#nudges">
               See how it works
             </a>
@@ -840,16 +831,18 @@ function App() {
       </section>
 
       <section className="viral-loop" id="start">
-        <div className="viral-card">
-          <img src="/maxxtoken/icon-1.png" alt="MaxxToken receipt icon" />
-          <div>
-            <strong>Download for Mac</strong>
-            <span>Pay what you want. One-time. Private by design.</span>
+        <div className="viral-loop-stack">
+          <div className="viral-card">
+            <img src="/maxxtoken/icon-1.png" alt="MaxxToken receipt icon" />
+            <div className="viral-card-copy">
+              <strong>Download MaxxToken</strong>
+              <span>Pay what you want. One-time. Private by design.</span>
+            </div>
+            <div className="viral-downloads">
+              <PolarDownloadButton onClick={startDownload} className="btn-primary" iconSize={16} />
+            </div>
           </div>
-          <a className="btn-primary" href={POLAR_CHECKOUT_URL} onClick={startDownload}>
-            Download for Mac
-            <ArrowRight size={16} aria-hidden="true" />
-          </a>
+          <p className="footer-icon-credits viral-footnote">Windows installer still in Beta</p>
         </div>
       </section>
 
@@ -894,15 +887,22 @@ function App() {
           <button type="button" className="footer-link-btn" onClick={goFreebies}>
             Freebies
           </button>
-          <a href={POLAR_CHECKOUT_URL} onClick={startDownload}>
-            Download
-          </a>
+          <PolarDownloadButton onClick={startDownload} className="footer-dl" showIcons={false} />
         </nav>
         <div className="footer-social">
           <a href="https://x.com/rachelnocode" aria-label="Rachel on X">
             <ArrowUpRight size={16} aria-hidden="true" />
           </a>
         </div>
+        <p className="footer-icon-credits">
+          <a href="https://www.flaticon.com/free-icons/mac" title="mac icons">
+            Mac icons created by Freepik - Flaticon
+          </a>
+          {' · '}
+          <a href="https://www.flaticon.com/free-icons/logos" title="logos icons">
+            Logos icons created by Pixel perfect - Flaticon
+          </a>
+        </p>
       </footer>
         </>
       )}

@@ -1,0 +1,173 @@
+---
+import GoalieLayout from '../../layouts/GoalieLayout.astro';
+import GoalieClient from '../../goalie/GoalieClient';
+import { GOALIE_POLAR_CHECKOUT_URL } from '../../goalie/polar';
+
+const title = 'Goalie — Super Factory for Agent Goals on Mac';
+const description =
+  'Goalie pulls live trend signals, turns them into sharp build-ready goals, and hands them to your local Claude Code or Codex CLI. Fully local on your Mac.';
+---
+
+<GoalieLayout {title} {description}>
+  <main class="goalie-page">
+    <section class="hero" aria-labelledby="goalie-title">
+      <div class="hero-copy">
+        <p class="eyebrow">Super factory for agent goals</p>
+        <h1 id="goalie-title">Goalie</h1>
+        <p class="tagline">Prompt it. Goal it. Build it.</p>
+        <p class="lede">
+          Goalie is your friendly Mac sidekick for goal prompting — like Clippy, but for shipping ideas.
+          It reads live trend signals, turns them into sharp super goals, then hands them to Claude Code or
+          Codex on your machine. Your subscription. No extra keys.
+        </p>
+        <div class="hero-actions">
+          <a class="btn-primary" href={GOALIE_POLAR_CHECKOUT_URL} data-goalie-download>
+            Download Goalie now
+          </a>
+          <a class="btn-secondary" href="#screenshots">See how it works</a>
+        </div>
+        <div class="pill-row" aria-label="Goalie highlights">
+          <span class="pill"><strong>Live signals</strong> from trend feeds</span>
+          <span class="pill"><strong>Claude Code</strong> + Codex ready</span>
+          <span class="pill"><strong>100% local</strong> on your Mac</span>
+        </div>
+      </div>
+
+      <div class="hero-mascot" aria-hidden="true">
+        <div class="hero-mascot-card">
+          <div class="speech-bubble">Hi! I turn vibes into build-ready goals.</div>
+          <img src="/goalie/icon.png" alt="" width="160" height="160" />
+          <p>Meet Goalie</p>
+          <span>Your goal net mascot</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="how" class="steps" aria-label="How Goalie works">
+      <article class="step-card">
+        <span class="step-num">1</span>
+        <h3>Scan signals</h3>
+        <p>Goalie pulls live trend signals and scores what is worth building right now.</p>
+      </article>
+      <article class="step-card">
+        <span class="step-num">2</span>
+        <h3>Forge goals</h3>
+        <p>Each card gets the goal, why now, and a starter prompt you can launch instantly.</p>
+      </article>
+      <article class="step-card">
+        <span class="step-num">3</span>
+        <h3>Build local</h3>
+        <p>Pick Claude Code or Codex. Goalie creates the folder and kicks off the build on your Mac.</p>
+      </article>
+    </section>
+
+    <section id="screenshots" class="shot-section" aria-labelledby="screenshots-title">
+      <div class="section-head">
+        <h2 id="screenshots-title">See the factory floor</h2>
+        <p>Two screens. Zero mystery. Goalie keeps the whole loop friendly and obvious.</p>
+      </div>
+
+      <div class="shot-row">
+        <article class="shot-panel">
+          <div class="shot-visual">
+            <picture>
+              <source type="image/webp" srcset="/goalie/screenshot-home.webp" />
+              <img
+                src="/goalie/screenshot-home.png"
+                width="874"
+                height="577"
+                alt="Goalie home screen showing trend signals, goal dial, and today's factory floor"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
+            <div class="callout callout--home">
+              <strong>Today's goal batch</strong>
+              <p>Refresh live signals, dial the wildness from Normal to Crazy, and filter by SEO, ASO, or SaaS.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="shot-panel">
+          <div class="shot-visual">
+            <picture>
+              <source type="image/webp" srcset="/goalie/screenshot-goals.webp" />
+              <img
+                src="/goalie/screenshot-goals.png"
+                width="874"
+                height="577"
+                alt="Goalie goal cards with scores, starter prompts, and start buttons"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
+            <div class="callout callout--goals">
+              <strong>Build-ready cards</strong>
+              <p>Every goal ships with context, urgency, and a starter prompt — bookmark favorites or mark them done.</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="local-grid" aria-label="Why Goalie stays local">
+      <article class="local-card">
+        <h2>Built for your Mac, not the cloud</h2>
+        <ul class="local-list">
+          <li>Uses Claude Code or Codex CLI with your existing subscription</li>
+          <li>Projects land in a local folder you own — open them in Cursor anytime</li>
+          <li>No API keys pasted into yet another dashboard</li>
+          <li>Signals in, super goals out, builds on your machine</li>
+        </ul>
+      </article>
+
+      <article class="mascot-card">
+        <img src="/goalie/icon.png" alt="Goalie mascot" width="120" height="120" />
+        <h2>Clippy energy. Builder brain.</h2>
+        <p>
+          Goalie is the mascot in the corner cheering you on — but actually useful. It nudges you toward
+          ideas worth building and gets out of the way once your agent takes over.
+        </p>
+      </article>
+    </section>
+
+    <section id="get" class="get-card" aria-labelledby="get-title">
+      <h2 id="get-title">Ready to goal something?</h2>
+      <p>
+        Grab Goalie for macOS and turn today's trend signals into a project folder before dinner.
+      </p>
+      <a class="btn-primary" href={GOALIE_POLAR_CHECKOUT_URL} data-goalie-download>
+        Download Goalie now
+      </a>
+    </section>
+
+    <GoalieClient client:load />
+
+    <footer class="page-footer">
+      <p>
+        Goalie is a tiny Mac app by <a href="/">Rachel noCode</a>.
+        Questions? <a href="mailto:witchaudiodev@gmail.com">Say hi</a>.
+      </p>
+    </footer>
+  </main>
+
+  <script
+    is:inline
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'SoftwareApplication',
+      name: 'Goalie',
+      applicationCategory: 'ProductivityApplication',
+      operatingSystem: 'macOS',
+      url: 'https://www.rachelnocode.com/goalie',
+      image: 'https://www.rachelnocode.com/goalie/icon.png',
+      description,
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'USD',
+      },
+    })}
+  />
+</GoalieLayout>

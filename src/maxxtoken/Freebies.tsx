@@ -13,8 +13,7 @@ import {
 } from './freebie-data'
 import { exportReceiptPngFromElement } from './receipt-export'
 
-const POLAR_CHECKOUT_URL =
-  'https://buy.polar.sh/polar_cl_TF2FMLN9mPYUxBtKhXSPZHJotGeO8ICDeFEA124wOvt'
+import { POLAR_CHECKOUT_URL } from './PolarDownloadButton'
 
 const defaultSelected = ['claude', 'chatgpt', 'cursor', 'gemini']
 
