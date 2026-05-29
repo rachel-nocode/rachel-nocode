@@ -202,6 +202,9 @@ html[data-theme='light'] {
     linear-gradient(#000 0 0) content-box,
     linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
   mask-composite: exclude;
   opacity: 0;
   transition: opacity 0.2s ease;
@@ -2831,7 +2834,7 @@ html[data-theme='light'] {
 }
 
 .step {
-  background: var(--panel, var(--panel));
+  background: var(--panel);
   border: 1px solid var(--line);
   border-radius: 16px;
   padding: 26px 24px 28px;
@@ -3897,36 +3900,6 @@ html[data-theme='light'] {
   min-width: 56px;
   text-align: right;
   font-variant-numeric: tabular-nums;
-}
-
-/* Tokens */
-.nx-tokens {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  margin-top: -4px;
-}
-
-.nx-token-card {
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 11px 12px;
-  background: var(--inset);
-}
-
-.nx-token-label {
-  display: block;
-  font-size: 10.5px;
-  letter-spacing: 0.08em;
-  color: var(--muted);
-}
-
-.nx-token-val {
-  display: block;
-  margin-top: 5px;
-  font-size: 19px;
-  font-weight: 700;
-  color: var(--text);
 }
 
 /* Model burn */

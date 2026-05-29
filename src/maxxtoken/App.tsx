@@ -62,7 +62,6 @@ type Provider = {
     sessionReset: string
     weeklyReset: string
     cost: { label: string; tokens: string; dollars: string }[]
-    tokens: { in: string; cached: string; out: string }
     burn: ModelBurn[]
   }
 }
@@ -85,7 +84,6 @@ const providers: Provider[] = [
         { label: 'Yesterday', tokens: '0K tokens', dollars: '$2.49' },
         { label: 'Last 30d', tokens: '0K tokens', dollars: '$51.84' },
       ],
-      tokens: { in: '4M', cached: '63M', out: '0.4M' },
       burn: [
         { name: 'claude-opus-4-7', tok: '33M tok', cost: '$33.04', pct: 49 },
         { name: 'claude-sonnet-4-6', tok: '26.3M tok', cost: '$11.79', pct: 39 },
@@ -112,7 +110,6 @@ const providers: Provider[] = [
         { label: 'Yesterday', tokens: '0K tokens', dollars: '$4.80' },
         { label: 'Last 30d', tokens: '0K tokens', dollars: '$88.10' },
       ],
-      tokens: { in: '9M', cached: '120M', out: '1.1M' },
       burn: [
         { name: 'gpt-5-pro', tok: '61M tok', cost: '$52.10', pct: 58 },
         { name: 'gpt-5-mini', tok: '24M tok', cost: '$18.40', pct: 26 },
@@ -138,7 +135,6 @@ const providers: Provider[] = [
         { label: 'Yesterday', tokens: '0K tokens', dollars: '$1.10' },
         { label: 'Last 30d', tokens: '0K tokens', dollars: '$22.30' },
       ],
-      tokens: { in: '2M', cached: '41M', out: '0.3M' },
       burn: [
         { name: 'auto', tok: '18M tok', cost: '$12.40', pct: 56 },
         { name: 'claude-sonnet-4-6', tok: '7M tok', cost: '$6.10', pct: 28 },
@@ -163,7 +159,6 @@ const providers: Provider[] = [
         { label: 'Yesterday', tokens: '0K tokens', dollars: '$0.20' },
         { label: 'Last 30d', tokens: '0K tokens', dollars: '$3.40' },
       ],
-      tokens: { in: '0.4M', cached: '6M', out: '0.1M' },
       burn: [
         { name: 'kimi-k2', tok: '1.2M tok', cost: '$0.90', pct: 70 },
         { name: 'kimi-k1.5', tok: '0.4M tok', cost: '$0.30', pct: 30 },
@@ -187,7 +182,6 @@ const providers: Provider[] = [
         { label: 'Yesterday', tokens: '0K tokens', dollars: '$0.90' },
         { label: 'Last 30d', tokens: '0K tokens', dollars: '$14.60' },
       ],
-      tokens: { in: '1.5M', cached: '28M', out: '0.2M' },
       burn: [
         { name: 'grok-4', tok: '12M tok', cost: '$9.80', pct: 62 },
         { name: 'grok-4-mini', tok: '5M tok', cost: '$4.80', pct: 38 },
@@ -487,8 +481,8 @@ function App() {
   // Footer numbers are fixed for the marketing demo (match the design mock).
   const totals = { spent: 163, left: 439 }
 
-  const fullestProvider = animatedProviders.reduce((fullest, provider) =>
-    provider.leftPct > fullest.leftPct ? provider : fullest,
+  const mostFreeProvider = animatedProviders.reduce((mostFree, provider) =>
+    provider.leftPct > mostFree.leftPct ? provider : mostFree,
   )
 
   return (
@@ -693,6 +687,7 @@ function App() {
                               className="nx-chevron"
                               aria-label={provider.expanded ? 'Collapse' : 'Expand'}
                               aria-expanded={provider.expanded}
+                              aria-controls={`nx-detail-${provider.id}`}
                               onClick={() =>
                                 setExpandedId((id) => (id === provider.id ? null : provider.id))
                               }
@@ -711,7 +706,7 @@ function App() {
                           </div>
 
                           {provider.expanded ? (
-                            <div className="nx-detail">
+                            <div className="nx-detail" id={`nx-detail-${provider.id}`}>
                               {/* Sub-windows */}
                               <div className="nx-window">
                                 <div className="nx-window-head">
@@ -814,8 +809,8 @@ function App() {
                     </span>
                   </div>
                   <div className="forge-target">
-                    Routed to <strong>{fullestProvider.name}</strong> · {fullestProvider.leftPct}%
-                    full
+                    Routed to <strong>{mostFreeProvider.name}</strong> · {mostFreeProvider.leftPct}%
+                    free
                   </div>
                   <div className="stream-stage">
                     <article className="stream-card">
