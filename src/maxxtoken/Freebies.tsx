@@ -12,6 +12,7 @@ import {
   type BuildingGoal,
 } from './freebie-data'
 import { exportReceiptPngFromElement } from './receipt-export'
+import { PromptCacheFreebie } from './PromptCacheFreebie'
 
 const POLAR_CHECKOUT_URL =
   'https://buy.polar.sh/polar_cl_TF2FMLN9mPYUxBtKhXSPZHJotGeO8ICDeFEA124wOvt'
@@ -34,7 +35,7 @@ function money(value: number) {
 }
 
 export function Freebies({ onDownload }: FreebiesProps) {
-  const [tab, setTab] = useState<'receipt' | 'mission'>('receipt')
+  const [tab, setTab] = useState<'receipt' | 'mission' | 'cache'>('receipt')
   const [selected, setSelected] = useState<string[]>(defaultSelected)
   const [usedPct, setUsedPct] = useState(28)
   const [goal, setGoal] = useState<BuildingGoal>('app')
@@ -111,7 +112,7 @@ export function Freebies({ onDownload }: FreebiesProps) {
         <h1>
           Flex the stack. <span className="accent">Maxx the reset.</span>
         </h1>
-        <p>Two quick tools — no login, no bloat. Generate a shareable receipt or one routed mission.</p>
+        <p>Three quick tools — no login, no bloat. Receipt, mission router, and OpenAI prompt cache optimizer.</p>
       </div>
 
       <div className="freebies-tabs" role="tablist" aria-label="Freebie tools">
@@ -133,8 +134,20 @@ export function Freebies({ onDownload }: FreebiesProps) {
         >
           One free maxx mission
         </button>
+        <button
+          type="button"
+          role="tab"
+          aria-selected={tab === 'cache'}
+          className={`freebies-tab ${tab === 'cache' ? 'is-active' : ''}`}
+          onClick={() => setTab('cache')}
+        >
+          Prompt cache optimizer
+        </button>
       </div>
 
+      {tab === 'cache' ? (
+        <PromptCacheFreebie />
+      ) : (
       <div className="freebies-grid">
         <div className="freebies-panel">
           <p className="freebies-label">Your stack</p>
@@ -310,6 +323,7 @@ export function Freebies({ onDownload }: FreebiesProps) {
           </div>
         </div>
       </div>
+      )}
     </section>
   )
 }
