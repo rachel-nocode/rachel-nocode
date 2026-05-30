@@ -449,45 +449,66 @@ const absoluteOgImage = new URL(ogImage, site).href;
     margin-bottom: 72px;
   }
 
+  .shot-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(24px, 3.5vw, 40px);
+    align-items: start;
+    justify-items: center;
+    max-width: 1120px;
+    margin: 0 auto;
+  }
+
   .shot-panel {
+    width: 100%;
+    max-width: 520px;
+  }
+
+  .shot-visual {
     position: relative;
-    padding: clamp(18px, 3vw, 28px);
-    border: 2px solid var(--border);
-    border-radius: calc(var(--radius-lg) + 6px);
-    background: var(--cream);
-    box-shadow: var(--shadow);
+    padding-bottom: 42px;
   }
 
   .shot-panel picture {
     display: block;
-    max-width: 1024px;
-    margin: 0 auto;
+    width: 100%;
   }
 
   .shot-panel img {
     display: block;
     width: 100%;
     height: auto;
-    border: 2px solid rgba(17, 17, 17, 0.08);
-    border-radius: calc(var(--radius-md) + 4px);
+    border: 1px solid rgba(17, 17, 17, 0.14);
+    border-radius: 10px;
+    box-shadow: 0 10px 28px rgba(17, 17, 17, 0.08);
   }
 
   .callout {
     position: absolute;
     z-index: 2;
-    max-width: min(280px, 42vw);
-    padding: 14px 16px;
+    max-width: min(250px, 72%);
+    padding: 12px 14px;
     border: 2px solid var(--border);
-    border-radius: 20px;
-    background: white;
-    box-shadow: 6px 6px 0 rgba(17, 17, 17, 0.1);
+    border-radius: 18px;
+    box-shadow: 4px 4px 0 rgba(17, 17, 17, 0.1);
+  }
+
+  .callout::after {
+    content: "";
+    position: absolute;
+    top: -11px;
+    width: 16px;
+    height: 16px;
+    border-left: 2px solid var(--border);
+    border-top: 2px solid var(--border);
+    transform: rotate(45deg);
   }
 
   .callout strong {
     display: block;
     margin-bottom: 4px;
     font-family: var(--font-display);
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 800;
     letter-spacing: -0.02em;
   }
@@ -495,54 +516,30 @@ const absoluteOgImage = new URL(ogImage, site).href;
   .callout p {
     margin: 0;
     color: var(--muted);
-    font-size: 14px;
-    line-height: 1.45;
-  }
-
-  .callout::before {
-    content: "";
-    position: absolute;
-    width: 14px;
-    height: 14px;
-    border: 2px solid var(--border);
-    background: white;
-    transform: rotate(45deg);
+    font-size: 13px;
+    line-height: 1.4;
   }
 
   .callout--home {
-    top: 12%;
-    left: -4%;
+    left: 10px;
+    bottom: 14px;
     background: var(--yellow);
   }
 
-  .callout--home::before {
-    right: 28px;
-    bottom: -9px;
+  .callout--home::after {
+    left: 26px;
     background: var(--yellow);
   }
 
   .callout--goals {
-    top: 8%;
-    right: -3%;
+    right: 10px;
+    bottom: 14px;
     background: var(--pink);
   }
 
-  .callout--goals::before {
-    left: 28px;
-    bottom: -9px;
+  .callout--goals::after {
+    right: 26px;
     background: var(--pink);
-  }
-
-  .callout--build {
-    bottom: 14%;
-    left: -2%;
-    background: var(--green);
-  }
-
-  .callout--build::before {
-    right: 32px;
-    top: -9px;
-    background: var(--green);
   }
 
   .local-grid {
@@ -682,18 +679,28 @@ const absoluteOgImage = new URL(ogImage, site).href;
       grid-template-columns: 1fr;
     }
 
-    .callout {
-      position: relative;
-      top: auto !important;
-      right: auto !important;
-      bottom: auto !important;
-      left: auto !important;
-      max-width: none;
-      margin-top: 16px;
+    .shot-row {
+      grid-template-columns: 1fr;
+      max-width: 520px;
     }
 
-    .callout::before {
-      display: none;
+    .shot-visual {
+      padding-bottom: 0;
+    }
+
+    .callout {
+      position: relative;
+      left: auto !important;
+      right: auto !important;
+      bottom: auto !important;
+      max-width: none;
+      margin-top: -8px;
+    }
+
+    .callout::after {
+      top: -11px;
+      left: 26px !important;
+      right: auto !important;
     }
   }
 

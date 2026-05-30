@@ -10,17 +10,23 @@ import {
 } from 'react'
 import { PolarEmbedCheckout } from '@polar-sh/checkout/embed'
 import {
+  Aperture,
   ArrowRight,
   ArrowUpRight,
+  Asterisk,
   Box,
+  ChevronDown,
+  CircleSlash,
   Code2,
   FileText,
   Flame,
   Gauge,
   MessageCircle,
+  Moon,
   RefreshCw,
   Search,
   Settings,
+  Sun,
   Share2,
   Sparkles,
   Star,
@@ -33,105 +39,154 @@ import {
 } from 'lucide-react'
 import './App.css'
 import { Freebies } from './Freebies'
+import { POLAR_CHECKOUT_URL, PolarDownloadButton } from './PolarDownloadButton'
 
-// Polar pay-what-you-want checkout link.
-// Create a "pay what you want" product in the Polar dashboard, attach the
-// notarized .dmg as a downloadable benefit, generate a Checkout Link, paste here.
-const POLAR_CHECKOUT_URL = 'https://buy.polar.sh/polar_cl_TF2FMLN9mPYUxBtKhXSPZHJotGeO8ICDeFEA124wOvt'
+type ModelBurn = {
+  name: string
+  tok: string
+  cost: string
+  pct: number
+}
 
 type Provider = {
   id: string
   name: string
   plan: string
-  monthly: number
-  baseUsedPct: number
-  drain: number
-  countdown: string
-  accent: string
   icon: LucideIcon
-  windows: {
-    label: string
-    kind: string
-    usedPct: number
-    reset: string
-  }[]
+  // Animation seeds — bars fill from base and creep up as the demo ticks.
+  base5h: number
+  base7d: number
+  drain: number
+  reset: string
+  detail: {
+    sessionReset: string
+    weeklyReset: string
+    cost: { label: string; tokens: string; dollars: string }[]
+    burn: ModelBurn[]
+  }
 }
 
 const providers: Provider[] = [
   {
     id: 'claude',
     name: 'Claude',
-    plan: 'Max 20x',
-    monthly: 200,
-    baseUsedPct: 24,
+    plan: 'CLAUDE',
+    icon: Asterisk,
+    base5h: 3,
+    base7d: 7,
     drain: 0.12,
-    countdown: '08h 57m 36s',
-    accent: '#ff7d4d',
-    icon: Sparkles,
-    windows: [
-      { label: 'Session', kind: '5-hour window', usedPct: 11, reset: '03h 17m 35s' },
-      { label: 'Weekly', kind: '7-day window', usedPct: 24, reset: '08h 57m 36s' },
-      { label: 'Sonnet', kind: '7-day window', usedPct: 0, reset: 'resets —' },
-    ],
-  },
-  {
-    id: 'codex',
-    name: 'Codex',
-    plan: 'Pro Plan',
-    monthly: 30,
-    baseUsedPct: 1,
-    drain: 0.08,
-    countdown: '02h 56m 13s',
-    accent: '#e6e6e6',
-    icon: Box,
-    windows: [
-      { label: 'Session', kind: '5-hour window', usedPct: 1, reset: '02h 56m 13s' },
-      { label: 'Weekly', kind: '7-day window', usedPct: 1, reset: '2d 05h 37m' },
-    ],
-  },
-  {
-    id: 'kimi',
-    name: 'Kimi',
-    plan: 'Ultra',
-    monthly: 200,
-    baseUsedPct: 3,
-    drain: 0.1,
-    countdown: '1d 09h 37m',
-    accent: '#cfd2d6',
-    icon: Box,
-    windows: [
-      { label: 'Session', kind: '5-hour window', usedPct: 2, reset: '01h 14m 08s' },
-      { label: 'Weekly', kind: '7-day window', usedPct: 3, reset: '1d 09h 37m' },
-    ],
+    reset: '00H 00M',
+    detail: {
+      sessionReset: '00H 00M',
+      weeklyReset: '2D 00H',
+      cost: [
+        { label: 'Today', tokens: '0K tokens', dollars: '$0.09' },
+        { label: 'Yesterday', tokens: '0K tokens', dollars: '$2.49' },
+        { label: 'Last 30d', tokens: '0K tokens', dollars: '$51.84' },
+      ],
+      burn: [
+        { name: 'claude-opus-4-7', tok: '33M tok', cost: '$33.04', pct: 49 },
+        { name: 'claude-sonnet-4-6', tok: '26.3M tok', cost: '$11.79', pct: 39 },
+        { name: 'claude-sonnet-4-5-20250929', tok: '5.3M tok', cost: '$5.50', pct: 8 },
+        { name: 'claude-haiku-4-5-20251001', tok: '3M tok', cost: '$0.73', pct: 4 },
+        { name: 'claude-opus-4-1-20250805', tok: '42K tok', cost: '$0.79', pct: 0 },
+      ],
+    },
   },
   {
     id: 'chatgpt',
     name: 'ChatGPT',
-    plan: 'Plus Plan',
-    monthly: 20,
-    baseUsedPct: 0,
-    drain: 0.05,
-    countdown: '2d 05h 37m',
-    accent: '#19c37d',
-    icon: MessageCircle,
-    windows: [
-      { label: 'Session', kind: '5-hour window', usedPct: 0, reset: '02h 56m 13s' },
-      { label: 'Weekly', kind: '7-day window', usedPct: 0, reset: '2d 05h 37m' },
-    ],
+    plan: 'PRO 20X',
+    icon: Aperture,
+    base5h: 0,
+    base7d: 25,
+    drain: 0.18,
+    reset: '04H 34M',
+    detail: {
+      sessionReset: '04H 34M',
+      weeklyReset: '4D 12H',
+      cost: [
+        { label: 'Today', tokens: '0K tokens', dollars: '$1.20' },
+        { label: 'Yesterday', tokens: '0K tokens', dollars: '$4.80' },
+        { label: 'Last 30d', tokens: '0K tokens', dollars: '$88.10' },
+      ],
+      burn: [
+        { name: 'gpt-5-pro', tok: '61M tok', cost: '$52.10', pct: 58 },
+        { name: 'gpt-5-mini', tok: '24M tok', cost: '$18.40', pct: 26 },
+        { name: 'gpt-5-nano', tok: '8.2M tok', cost: '$9.90', pct: 12 },
+        { name: 'o4-mini', tok: '2.1M tok', cost: '$3.20', pct: 4 },
+      ],
+    },
   },
   {
-    id: 'gemini',
-    name: 'Gemini',
-    plan: 'Advanced',
-    monthly: 84,
-    baseUsedPct: 36,
-    drain: 0.15,
-    countdown: '16d left',
-    accent: '#4f8cff',
-    icon: Sparkles,
-    windows: [
-      { label: 'Cycle', kind: 'month window', usedPct: 36, reset: '16d 02h' },
-    ],
+    id: 'cursor',
+    name: 'Cursor',
+    plan: 'PRO+',
+    icon: Box,
+    base5h: 0,
+    base7d: 17,
+    drain: 0.1,
+    reset: '24D 17H',
+    detail: {
+      sessionReset: '02H 10M',
+      weeklyReset: '24D 17H',
+      cost: [
+        { label: 'Today', tokens: '0K tokens', dollars: '$0.40' },
+        { label: 'Yesterday', tokens: '0K tokens', dollars: '$1.10' },
+        { label: 'Last 30d', tokens: '0K tokens', dollars: '$22.30' },
+      ],
+      burn: [
+        { name: 'auto', tok: '18M tok', cost: '$12.40', pct: 56 },
+        { name: 'claude-sonnet-4-6', tok: '7M tok', cost: '$6.10', pct: 28 },
+        { name: 'gpt-5-pro', tok: '3M tok', cost: '$3.80', pct: 16 },
+      ],
+    },
+  },
+  {
+    id: 'kimi',
+    name: 'Kimi',
+    plan: 'BASIC',
+    icon: Box,
+    base5h: 0,
+    base7d: 1,
+    drain: 0.05,
+    reset: '00H 00M',
+    detail: {
+      sessionReset: '00H 00M',
+      weeklyReset: '6D 02H',
+      cost: [
+        { label: 'Today', tokens: '0K tokens', dollars: '$0.00' },
+        { label: 'Yesterday', tokens: '0K tokens', dollars: '$0.20' },
+        { label: 'Last 30d', tokens: '0K tokens', dollars: '$3.40' },
+      ],
+      burn: [
+        { name: 'kimi-k2', tok: '1.2M tok', cost: '$0.90', pct: 70 },
+        { name: 'kimi-k1.5', tok: '0.4M tok', cost: '$0.30', pct: 30 },
+      ],
+    },
+  },
+  {
+    id: 'grok',
+    name: 'Grok',
+    plan: 'BUILD',
+    icon: CircleSlash,
+    base5h: 0,
+    base7d: 11,
+    drain: 0.09,
+    reset: '—',
+    detail: {
+      sessionReset: '—',
+      weeklyReset: '—',
+      cost: [
+        { label: 'Today', tokens: '0K tokens', dollars: '$0.30' },
+        { label: 'Yesterday', tokens: '0K tokens', dollars: '$0.90' },
+        { label: 'Last 30d', tokens: '0K tokens', dollars: '$14.60' },
+      ],
+      burn: [
+        { name: 'grok-4', tok: '12M tok', cost: '$9.80', pct: 62 },
+        { name: 'grok-4-mini', tok: '5M tok', cost: '$4.80', pct: 38 },
+      ],
+    },
   },
 ]
 
@@ -273,8 +328,19 @@ function clampPct(value: number) {
   return Math.max(0, Math.min(98, value))
 }
 
+// Segmented "tick" bar — empty dashes under a green fill clipped to pct%.
+// The fill width transitions, so the bar animates as the demo ticks.
+function SegBar({ pct }: { pct: number }) {
+  return (
+    <span className="nx-bar" aria-hidden="true">
+      <span className="nx-bar-fill" style={{ width: `${Math.max(0, Math.min(100, pct))}%` }} />
+    </span>
+  )
+}
+
 function App() {
-  const [activeProvider, setActiveProvider] = useState('Claude')
+  const [expandedId, setExpandedId] = useState<string | null>('claude')
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark')
   const [spendTick, setSpendTick] = useState(0)
   const [demoOpen, setDemoOpen] = useState(true)
   const [demoView, setDemoView] = useState<'usage' | 'stream'>('usage')
@@ -337,6 +403,14 @@ function App() {
     return () => window.removeEventListener('hashchange', syncView)
   }, [])
 
+  // Theme lives on <html> so body bg + every var-driven surface flips at once.
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme
+    return () => {
+      delete document.documentElement.dataset.theme
+    }
+  }, [theme])
+
   useEffect(() => {
     const timer = window.setInterval(() => setSpendTick((tick) => tick + 1), 1200)
     return () => window.clearInterval(timer)
@@ -387,50 +461,28 @@ function App() {
   const animatedProviders = useMemo(
     () =>
       providers.map((provider, index) => {
-        const usedPct = clampPct(provider.baseUsedPct + spendStep * provider.drain)
-        const spent = provider.monthly * (usedPct / 100)
-        const left = provider.monthly - spent
+        // Bars creep up as the demo ticks. 7-day window is the headline number;
+        // the 5-hour session fills a touch faster.
+        const pct7d = clampPct(provider.base7d + spendStep * provider.drain)
+        const pct5h = clampPct(provider.base5h + spendStep * provider.drain * 1.4)
 
         return {
           ...provider,
-          active: provider.name === activeProvider,
-          usedPct,
-          leftPct: Math.round(100 - usedPct),
-          spent,
-          left,
-          windows: provider.windows.map((window, windowIndex) => {
-            const windowUsed = clampPct(
-              window.usedPct + spendStep * provider.drain * (windowIndex === 0 ? 1.4 : 1),
-            )
-
-            return {
-              ...window,
-              usedPct: windowUsed,
-              leftPct: Math.round(100 - windowUsed),
-            }
-          }),
-          streamDelay: `${index * 140}ms`,
+          expanded: provider.id === expandedId,
+          pct5h,
+          pct7d,
+          leftPct: Math.round(100 - pct7d),
+          streamDelay: `${index * 90}ms`,
         }
       }),
-    [activeProvider, spendStep],
+    [expandedId, spendStep],
   )
 
-  const totals = useMemo(() => {
-    const monthly = animatedProviders.reduce((sum, provider) => sum + provider.monthly, 0)
-    const spent = animatedProviders.reduce((sum, provider) => sum + provider.spent, 0)
-    const left = monthly - spent
+  // Footer numbers are fixed for the marketing demo (match the design mock).
+  const totals = { spent: 163, left: 439 }
 
-    return {
-      monthly,
-      spent,
-      left,
-      leftPct: Math.round((left / monthly) * 100),
-      spentPct: Math.round((spent / monthly) * 100),
-    }
-  }, [animatedProviders])
-
-  const fullestProvider = animatedProviders.reduce((fullest, provider) =>
-    provider.leftPct > fullest.leftPct ? provider : fullest,
+  const mostFreeProvider = animatedProviders.reduce((mostFree, provider) =>
+    provider.leftPct > mostFree.leftPct ? provider : mostFree,
   )
 
   return (
@@ -491,12 +543,19 @@ function App() {
             </a>
           </div>
           <div className="osm-right">
+            <button
+              type="button"
+              className="osm-theme-toggle"
+              onClick={() => setTheme((t) => (t === 'dark' ? 'light' : 'dark'))}
+              aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+              title={theme === 'dark' ? 'Light mode' : 'Dark mode'}
+            >
+              {theme === 'dark' ? <Sun size={15} /> : <Moon size={15} />}
+            </button>
             <Wifi className="osm-glyph" size={15} aria-hidden="true" />
             <Search className="osm-glyph" size={15} aria-hidden="true" />
             <span className="osm-clock">{clockLabel}</span>
-            <a className="osm-download" href={POLAR_CHECKOUT_URL} onClick={startDownload}>
-              Download for Mac
-            </a>
+            <PolarDownloadButton onClick={startDownload} className="osm-download" showIcons={false} />
             <button
               type="button"
               ref={pillRef}
@@ -527,10 +586,7 @@ function App() {
             MaxxToken shows the dollars you have left and turns them into work before the timer runs out.
           </p>
           <div className="hero-actions">
-            <a className="btn-primary lg" href={POLAR_CHECKOUT_URL} onClick={startDownload}>
-              Download for Mac
-              <ArrowRight size={18} aria-hidden="true" />
-            </a>
+            <PolarDownloadButton onClick={startDownload} className="btn-primary lg" iconSize={16} />
             <a className="btn-outline lg" href="#nudges">
               See how it works
             </a>
@@ -570,148 +626,168 @@ function App() {
             <div className="demo-pop-wrap">
               <span className="demo-caret" aria-hidden="true" />
               {demoView === 'usage' ? (
-                <div className="popover-demo usage-popover">
-                  <div className="pd-dot-grid" aria-hidden="true" />
-                  <div className="pd-head">
-                    <div className="pd-brand">
-                      <img className="pd-logo" src="/maxxtoken/icon-1.png" alt="" />
-                      <span>
+                <div className="popover-demo usage-popover nx">
+                  {/* Header */}
+                  <div className="nx-head">
+                    <div className="nx-brand">
+                      <img className="nx-brand-mark" src="/maxxtoken/icon-1.png" alt="" />
+                      <span className="nx-brand-name">
                         Maxx<strong>Token</strong>
                       </span>
                     </div>
-                    <span className="pd-cycle">May cycle · 16d left</span>
-                    <div className="pd-actions">
+                    <div className="nx-head-actions">
                       <button
-                        className="pd-icon-btn live"
+                        className="nx-icon-btn"
                         type="button"
                         aria-label="Open Idea Stream"
                         onClick={() => setDemoView('stream')}
                       >
-                        ◆
+                        <span className="nx-diamond" aria-hidden="true" />
                       </button>
-                      <button className="pd-icon-btn" type="button" aria-label="Settings">
+                      <button className="nx-icon-btn" type="button" aria-label="Settings">
                         <Settings size={14} />
                       </button>
                     </div>
                   </div>
 
-                  <section className="pd-receipt">
-                    <div className="pd-stats">
-                      <div className="pd-stat">
-                        <div className="pd-num green">{money(totals.spent)}</div>
-                        <div className="pd-label">spent value</div>
-                      </div>
-                      <div className="pd-divider" />
-                      <div className="pd-stat">
-                        <div className="pd-num amber">{money(totals.left)}</div>
-                        <div className="pd-label">left to maxx</div>
-                      </div>
-                      <div className="pd-divider" />
-                      <div className="pd-stat">
-                        <div className="pd-num mono">38d 20h</div>
-                        <div className="pd-label">used</div>
-                      </div>
-                    </div>
-                    <div className="pd-meter">
-                      <span className="pd-meter-fill" style={{ width: `${totals.spentPct}%` }} />
-                    </div>
-                    <div className="pd-foot">
-                      <span className="pd-stars" aria-hidden="true">
-                        <Star size={17} className="filled" />
-                        <Star size={17} />
-                        <Star size={17} />
-                        <Star size={17} />
-                        <Star size={17} />
-                      </span>
-                      <span className="pd-verdict">Donating to Big AI. Fix it.</span>
-                      <span className="pd-spend-pulse">
-                        <Flame size={12} aria-hidden="true" />
-                        spending
-                      </span>
-                    </div>
-                  </section>
+                  {/* Status bar */}
+                  <div className="nx-status">
+                    <span className="nx-status-dot" aria-hidden="true" />
+                    LIVE · {animatedProviders.length} STREAMS
+                  </div>
 
-                  <div className="pd-list">
+                  {/* Provider list */}
+                  <div className="nx-list">
                     {animatedProviders.map((provider) => {
                       const Icon = provider.icon
+                      const headline = Math.round(provider.pct7d)
 
                       return (
-                        <button
+                        <div
+                          className={`nx-row ${provider.expanded ? 'is-open' : ''}`}
                           key={provider.id}
-                          type="button"
-                          className={`pd-prov ${provider.active ? 'active' : ''}`}
-                          onClick={() => setActiveProvider(provider.name)}
-                          style={
-                            {
-                              '--accent': provider.accent,
-                              '--stream-delay': provider.streamDelay,
-                            } as CSSProperties
-                          }
+                          style={{ '--stream-delay': provider.streamDelay } as CSSProperties}
                         >
-                          <div className="pd-prov-top">
-                            <span className="pd-prov-icon">
-                              <Icon size={15} aria-hidden="true" />
-                            </span>
-                            <span className="pd-prov-info">
-                              <span className="pd-prov-name">{provider.name}</span>
-                              <span className="pd-prov-sub">
-                                <span className="pd-dot live" />
-                                {provider.plan} · {money(provider.monthly)}/mo
-                              </span>
-                            </span>
-                            <span className="pd-prov-pct">
-                              <span className="pd-pct-num">{Math.round(provider.usedPct)}%</span>
-                              <span className="pd-pct-label">used</span>
-                            </span>
-                          </div>
-                          <span className="pd-prov-meter" aria-hidden="true">
-                            <span
-                              className="pd-prov-meter-fill"
-                              style={{ width: `${provider.usedPct}%` }}
-                            />
-                          </span>
-                          <div className="pd-window-list">
-                            {provider.windows.slice(0, provider.active ? 3 : 2).map((window) => (
-                              <div className="pd-window" key={`${provider.id}-${window.label}`}>
-                                <div className="pd-window-head">
-                                  <span>{window.label}</span>
-                                  <small>{window.kind}</small>
-                                </div>
-                                <span className="pd-window-bar" aria-hidden="true">
-                                  <span style={{ width: `${window.usedPct}%` }} />
+                          <div className="nx-row-top">
+                            <span className="nx-row-icon">
+                              {provider.id === 'kimi' ? (
+                                <span className="nx-row-glyph" aria-hidden="true">
+                                  K
                                 </span>
-                                <div className="pd-window-foot">
-                                  <span>
-                                    <strong>{Math.round(window.usedPct)}%</strong> used
+                              ) : (
+                                <Icon size={16} aria-hidden="true" />
+                              )}
+                            </span>
+                            <span className="nx-row-name">{provider.name}</span>
+                            <span className="nx-row-plan">{provider.plan}</span>
+                            <span className="nx-row-spark" aria-hidden="true" />
+                            <span className="nx-row-pct">{headline}%</span>
+                            <button
+                              type="button"
+                              className="nx-chevron"
+                              aria-label={provider.expanded ? 'Collapse' : 'Expand'}
+                              aria-expanded={provider.expanded}
+                              aria-controls={`nx-detail-${provider.id}`}
+                              onClick={() =>
+                                setExpandedId((id) => (id === provider.id ? null : provider.id))
+                              }
+                            >
+                              <ChevronDown size={15} aria-hidden="true" />
+                            </button>
+                          </div>
+
+                          <SegBar pct={provider.pct7d} />
+
+                          <div className="nx-row-foot">
+                            <span>
+                              5H {Math.round(provider.pct5h)}% · 7D {headline}%
+                            </span>
+                            <span>RESET {provider.reset}</span>
+                          </div>
+
+                          {provider.expanded ? (
+                            <div className="nx-detail" id={`nx-detail-${provider.id}`}>
+                              {/* Sub-windows */}
+                              <div className="nx-window">
+                                <div className="nx-window-head">
+                                  <span>SESSION · 5H</span>
+                                  <span className="nx-window-pct">
+                                    {Math.round(provider.pct5h)}
+                                    <small>%</small>
                                   </span>
-                                  <span>{window.reset}</span>
+                                </div>
+                                <SegBar pct={provider.pct5h} />
+                                <div className="nx-window-foot">
+                                  RESETS IN {provider.detail.sessionReset}
                                 </div>
                               </div>
-                            ))}
-                          </div>
-                          <div className="pd-prov-bottom">
-                            <span>
-                              <strong>{moneyExact(provider.spent)}</strong> spent
-                            </span>
-                            <span>
-                              <strong>{moneyExact(provider.left)}</strong> left to maxx
-                            </span>
-                          </div>
-                        </button>
+                              <div className="nx-window">
+                                <div className="nx-window-head">
+                                  <span>WEEKLY · 7D</span>
+                                  <span className="nx-window-pct">
+                                    {headline}
+                                    <small>%</small>
+                                  </span>
+                                </div>
+                                <SegBar pct={provider.pct7d} />
+                                <div className="nx-window-foot">
+                                  RESETS IN {provider.detail.weeklyReset}
+                                </div>
+                              </div>
+
+                              {/* Cost */}
+                              <div className="nx-section-head">
+                                <span className="nx-section-title">COST</span>
+                                <span>estimated</span>
+                              </div>
+                              <div className="nx-cost">
+                                {provider.detail.cost.map((row) => (
+                                  <div className="nx-cost-row" key={row.label}>
+                                    <span className="nx-cost-label">{row.label}</span>
+                                    <span className="nx-cost-tok">{row.tokens}</span>
+                                    <span className="nx-cost-amt">{row.dollars}</span>
+                                  </div>
+                                ))}
+                              </div>
+
+                              {/* Model burn */}
+                              <div className="nx-section-head">
+                                <span className="nx-section-title">MODEL BURN</span>
+                                <span>{provider.detail.burn.length} ACTIVE</span>
+                              </div>
+                              <div className="nx-burn">
+                                {provider.detail.burn.map((model) => (
+                                  <div className="nx-burn-row" key={model.name}>
+                                    <div className="nx-burn-top">
+                                      <span className="nx-burn-name">{model.name}</span>
+                                      <span className="nx-burn-tok">{model.tok}</span>
+                                      <span className="nx-burn-amt">{model.cost}</span>
+                                      <span className="nx-burn-pct">{model.pct}%</span>
+                                    </div>
+                                    <SegBar pct={model.pct} />
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          ) : null}
+                        </div>
                       )
                     })}
                   </div>
 
-                  <footer className="pd-pop-foot">
-                    <span className="pd-pop-totals">
-                      <strong>LEFT {money(totals.left)}</strong>
-                      <strong>SPENT {money(totals.spent)}</strong>
-                      <span>
-                        PLANS {animatedProviders.length} · 1e
-                      </span>
-                    </span>
-                    <button type="button" onClick={() => setDemoOpen(false)}>
-                      Done
+                  {/* Footer */}
+                  <footer className="nx-foot">
+                    <div className="nx-foot-box">
+                      <span className="nx-foot-label">SPENT</span>
+                      <span className="nx-foot-val green">{money(totals.spent)}</span>
+                    </div>
+                    <div className="nx-foot-box">
+                      <span className="nx-foot-label">LEFT</span>
+                      <span className="nx-foot-val red">{money(totals.left)}</span>
+                    </div>
+                    <button type="button" className="nx-sync" onClick={() => setSpendTick(0)}>
+                      SYNC
+                      <RefreshCw size={14} aria-hidden="true" />
                     </button>
                   </footer>
                 </div>
@@ -733,8 +809,8 @@ function App() {
                     </span>
                   </div>
                   <div className="forge-target">
-                    Routed to <strong>{fullestProvider.name}</strong> · {fullestProvider.leftPct}%
-                    full
+                    Routed to <strong>{mostFreeProvider.name}</strong> · {mostFreeProvider.leftPct}%
+                    free
                   </div>
                   <div className="stream-stage">
                     <article className="stream-card">
@@ -840,16 +916,18 @@ function App() {
       </section>
 
       <section className="viral-loop" id="start">
-        <div className="viral-card">
-          <img src="/maxxtoken/icon-1.png" alt="MaxxToken receipt icon" />
-          <div>
-            <strong>Download for Mac</strong>
-            <span>Pay what you want. One-time. Private by design.</span>
+        <div className="viral-loop-stack">
+          <div className="viral-card">
+            <img src="/maxxtoken/icon-1.png" alt="MaxxToken receipt icon" />
+            <div className="viral-card-copy">
+              <strong>Download MaxxToken</strong>
+              <span>Pay what you want. One-time. Private by design.</span>
+            </div>
+            <div className="viral-downloads">
+              <PolarDownloadButton onClick={startDownload} className="btn-primary" iconSize={16} />
+            </div>
           </div>
-          <a className="btn-primary" href={POLAR_CHECKOUT_URL} onClick={startDownload}>
-            Download for Mac
-            <ArrowRight size={16} aria-hidden="true" />
-          </a>
+          <p className="footer-icon-credits viral-footnote">Windows installer still in Beta</p>
         </div>
       </section>
 
@@ -894,15 +972,22 @@ function App() {
           <button type="button" className="footer-link-btn" onClick={goFreebies}>
             Freebies
           </button>
-          <a href={POLAR_CHECKOUT_URL} onClick={startDownload}>
-            Download
-          </a>
+          <PolarDownloadButton onClick={startDownload} className="footer-dl" showIcons={false} />
         </nav>
         <div className="footer-social">
           <a href="https://x.com/rachelnocode" aria-label="Rachel on X">
             <ArrowUpRight size={16} aria-hidden="true" />
           </a>
         </div>
+        <p className="footer-icon-credits">
+          <a href="https://www.flaticon.com/free-icons/mac" title="mac icons">
+            Mac icons created by Freepik - Flaticon
+          </a>
+          {' · '}
+          <a href="https://www.flaticon.com/free-icons/logos" title="logos icons">
+            Logos icons created by Pixel perfect - Flaticon
+          </a>
+        </p>
       </footer>
         </>
       )}
