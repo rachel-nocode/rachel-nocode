@@ -13,7 +13,7 @@ import { fileURLToPath } from 'node:url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const ROOT = path.resolve(__dirname, '..')
-const OUT = path.join(ROOT, 'public', 'maxxtoken', 'og-v5.png')
+const OUT = path.join(ROOT, 'public', 'maxxtoken', 'og-v6.png')
 const PORT = 4331
 const URL = `http://127.0.0.1:${PORT}/maxxtoken`
 
