@@ -6,14 +6,18 @@ import {
   CheckCircle2,
   Download,
   FileVideo,
-  FolderPlus,
   Gauge,
   Headphones,
   Layers,
   Mail,
+  Mic,
+  Play,
+  Search,
   Sliders,
   Sparkles,
+  Square,
   Star,
+  Upload,
   Volume2,
   Waves,
   Wind,
@@ -22,7 +26,7 @@ import './App.css'
 
 // Polar pay-what-you-want checkout link. Swap with the real Save my Audio
 // product link once it exists in the Polar dashboard.
-const DOWNLOAD_URL = 'https://buy.polar.sh/polar_cl_NnvkIN3Z0EoZzRVwP0sIBzElM9fss7CEB5TzS2sTUIu'
+const DOWNLOAD_URL = 'https://buy.polar.sh/polar_cl_a4EOE1XfYzPI6kk58u9PqkSTcIamKW85YxJkk1tHAYs'
 
 export default function App() {
   const [showThankYou, setShowThankYou] = useState(false)
@@ -82,7 +86,7 @@ export default function App() {
         <div className="sma-mb-inner">
           <a className="sma-back" href="/">← rachelnocode</a>
           <a className="sma-brand" href="/savemyaudio">
-            <span className="sma-mark"><Waves size={14} /></span>
+            <span className="sma-mark"><img src="/savemyaudio/icon.png" alt="" /></span>
             <span>Save my Audio</span>
           </a>
           <a className="sma-mb-cta" href={DOWNLOAD_URL} onClick={startDownload}>
@@ -97,7 +101,7 @@ export default function App() {
           <h1>Bad audio. <span className="hl">Fixed.</span></h1>
           <p className="sma-sub">
             Drop any video. Save my Audio lifts the levels, kills the rumble, cleans the noise,
-            and exports a ready-to-post file — all on your Mac.
+            and exports a ready-to-post file, all on your Mac.
           </p>
           <div className="sma-cta">
             <a className="sma-btn sma-btn--primary" href={DOWNLOAD_URL} onClick={startDownload}>
@@ -164,14 +168,9 @@ export default function App() {
 
         <footer className="sma-footer">
           <a className="sma-brand sm" href="/savemyaudio">
-            <span className="sma-mark sm"><Waves size={12} /></span>
+            <span className="sma-mark sm"><img src="/savemyaudio/icon.png" alt="" /></span>
             <span>Save my Audio</span>
           </a>
-          <nav>
-            <a href="/">rachelnocode</a>
-            <a href="/maxxtoken">MaxxToken</a>
-            <a href="/taptallypro">Tap Tally</a>
-          </nav>
           <span>© 2026 Rachel noCode</span>
         </footer>
       </main>
@@ -233,33 +232,55 @@ export default function App() {
 }
 
 function AppMock() {
-  const bars = Array.from({ length: 38 }).map((_, i) => {
-    const base = 8 + Math.abs(Math.sin(i * 0.7) * 56) + (i % 5 === 0 ? 20 : 0)
-    const color = i % 9 === 0 ? 'o' : i % 4 === 0 ? 'g' : 'b'
-    return { h: Math.round(base), c: color }
+  // Centered waveform: each bar mirrors around the midline, like the app.
+  const bars = Array.from({ length: 46 }).map((_, i) => {
+    const env = Math.abs(Math.sin(i * 0.42)) * 0.7 + Math.abs(Math.sin(i * 1.7)) * 0.3
+    const h = Math.round(14 + env * 80)
+    const color = i < 4 ? 'o' : i % 11 === 0 ? 'o' : i % 5 === 0 ? 't' : 'g'
+    return { h, c: color }
   })
 
   return (
     <section className="sma-mock-wrap" aria-label="App preview">
       <div className="sma-mock">
-        <div className="sma-traffic"><span /><span /><span /></div>
+        <div className="sma-titlebar">
+          <div className="sma-traffic"><span /><span /><span /></div>
+          <span className="sma-win-title">Save my Audio</span>
+          <div className="sma-win-tools" aria-hidden="true">
+            <span className="sma-tool-btn"><Layers size={13} /></span>
+            <span className="sma-tool-btn"><Sliders size={13} /></span>
+          </div>
+        </div>
+
         <div className="sma-mock-body">
+          {/* ---- Library ---- */}
           <aside className="sma-side">
-            <div className="sma-side-brand">
-              <span className="sma-mark sm"><Waves size={12} /></span>
-              <strong>Save my Audio</strong>
+            <div className="sma-side-head">
+              <span className="sma-side-h">Library</span>
+              <span className="sma-collapse" aria-hidden="true">‹</span>
             </div>
-            <span className="sma-side-h">Videos</span>
-            <div className="sma-side-item active">
+            <div className="sma-search">
+              <Search size={13} />
+              <span>Search videos</span>
+            </div>
+            <div className="sma-side-item">
               <span className="i"><FileVideo size={14} /></span>
               <div>
-                <strong>Anti Gravity 2.0_ IDE vs.…</strong>
+                <strong>10 AI Tools to Save Mon…</strong>
                 <span>Stereo · AAC · 44100 Hz</span>
               </div>
             </div>
+            <div className="sma-side-item active">
+              <span className="i"><FileVideo size={14} /></span>
+              <div>
+                <strong>First Impressions_ Clau…</strong>
+                <span>Stereo · AAC · 44100 Hz</span>
+              </div>
+            </div>
+            <div className="sma-dropzone">drag &amp; drop to add</div>
             <div className="sma-side-bottom">
               <button type="button" className="sma-btn sma-btn--primary sm">
-                <FolderPlus size={14} /> Import Videos
+                <Upload size={14} /> Import
               </button>
               <button type="button" className="sma-btn sma-btn--ghost sm">
                 <Activity size={14} /> Batch Fix
@@ -267,86 +288,88 @@ function AppMock() {
             </div>
           </aside>
 
+          {/* ---- Player ---- */}
           <div className="sma-pane">
             <div className="sma-pane-head">
               <div>
-                <h3>Anti Gravity 2.0_ IDE vs. CLI Explained.mp4</h3>
+                <h3>First Impressions_ Claude 4.8 Opus.mp4</h3>
                 <span>Stereo · AAC · 44100 Hz</span>
               </div>
-              <button type="button" className="sma-btn sma-btn--primary">
-                <Sparkles size={14} /> Fix Audio
-              </button>
+              <span className="sma-tag">Stereo</span>
             </div>
 
-            <div className="sma-card">
-              <div className="sma-card-head">
-                <strong><Waves size={14} /> Waveform</strong>
-                <span className="sma-tag">Stereo</span>
-              </div>
+            <div className="sma-player">
               <div className="sma-wave" aria-hidden="true">
+                <span className="sma-playhead" />
+                <span className="sma-baseline" />
                 {bars.map((b, i) => (
                   <span key={i} className={`b ${b.c}`} style={{ height: `${b.h}px` }} />
                 ))}
               </div>
+              <div className="sma-scrub" aria-hidden="true">
+                <span className="sma-scrub-knob" />
+              </div>
               <div className="sma-wave-foot">
-                <button type="button" className="sma-pill">
-                  <span className="dot" /> Original
-                </button>
-                <button type="button" className="sma-pill on">
-                  <Sparkles size={12} /> Fixed Preview
-                </button>
-                <button type="button" className="sma-pill">
-                  <span className="sq" /> Stop
-                </button>
-                <span className="sma-foot-note">Preview first 30 seconds before exporting.</span>
+                <span className="sma-time">00:18 / 07:05</span>
+                <div className="sma-transport">
+                  <button type="button" className="sma-pill on">
+                    <Play size={12} /> Original
+                  </button>
+                  <button type="button" className="sma-pill">
+                    <Sparkles size={12} /> Fixed Preview
+                  </button>
+                  <button type="button" className="sma-pill">
+                    <Square size={11} /> Stop
+                  </button>
+                </div>
+                <span className="sma-foot-note">preview · first 30s</span>
               </div>
-            </div>
-
-            <div className="sma-row">
-              <div className="sma-card">
-                <div className="sma-card-head">
-                  <strong>Repair Chain</strong>
-                  <Sliders size={14} />
-                </div>
-                <div className="sma-chain-row">
-                  <span className="sma-mini">Channels</span>
-                  <span className="sma-mini on">Keep channels</span>
-                  <span className="sma-mini">Mono → Stereo</span>
-                  <span className="sma-mini">Stereo → Mono</span>
-                </div>
-                <ChainItem icon={<Volume2 size={14} />} label="Loudness" value="−16 LUFS" pct={64} on />
-                <ChainItem icon={<Gauge size={14} />} label="Compressor" value="3:1" pct={56} on green />
-                <ChainItem icon={<Activity size={14} />} label="Limiter" on />
-                <ChainItem icon={<Wind size={14} />} label="Rumble" on />
-                <ChainItem icon={<Sparkles size={14} />} label="Cleanup" />
-              </div>
-
-              <div className="sma-card sma-card--export">
-                <div className="sma-card-head">
-                  <strong>Export</strong>
-                </div>
-                <div className="sma-export-state">
-                  <h2>Ready</h2>
-                  <span>AAC 192k · MOV passthrough</span>
-                </div>
-                <div className="sma-bitrate">
-                  <span>AAC</span>
-                  <span>160k</span>
-                  <span className="on">192k</span>
-                  <span>256k</span>
-                  <span>320k</span>
-                </div>
-                <button type="button" className="sma-btn sma-btn--primary full">
-                  <Sparkles size={14} /> Fix Selected Video
-                </button>
-              </div>
-            </div>
-
-            <div className="sma-log">
-              <div className="sma-card-head"><strong>Session Log</strong></div>
-              <code>Audio detected: Stereo · AAC · 44100 Hz</code>
             </div>
           </div>
+
+          {/* ---- Inspector ---- */}
+          <aside className="sma-inspector">
+            <div className="sma-insp-head">
+              <span className="sma-side-h">Inspector</span>
+              <button type="button" className="sma-btn sma-btn--primary xs">
+                <Sparkles size={13} /> Fix Audio
+              </button>
+            </div>
+
+            <div className="sma-insp-title"><Sparkles size={14} /> Repair Chain</div>
+            <div className="sma-seg">
+              <span className="on">Keep</span>
+              <span>M→S</span>
+              <span>S→M</span>
+            </div>
+
+            <ChainItem icon={<Waves size={14} />} label="Rumble" on accent="orange" />
+            <ChainItem icon={<Sparkles size={14} />} label="Noise Cleanup" on />
+            <ChainItem icon={<Square size={14} />} label="Noise Gate" />
+            <ChainItem icon={<Mic size={14} />} label="Voice Clarity" on />
+            <ChainItem icon={<Gauge size={14} />} label="Compressor" value="3:1" pct={50} on accent="green" />
+            <ChainItem icon={<Volume2 size={14} />} label="De-esser" />
+            <ChainItem icon={<Volume2 size={14} />} label="Loudness" value="−14 LUFS" pct={70} on accent="green" />
+            <ChainItem icon={<Wind size={14} />} label="Limiter" on accent="green" />
+
+            <div className="sma-insp-divider" />
+
+            <div className="sma-insp-title"><Upload size={14} /> Export</div>
+            <div className="sma-export-state">
+              <h2>Fixed</h2>
+              <span>AAC 192k · MOV passthrough</span>
+            </div>
+            <div className="sma-bitrate">
+              <span>160k</span>
+              <span className="on">192k</span>
+              <span>256k</span>
+              <span>320k</span>
+            </div>
+            <button type="button" className="sma-btn sma-btn--dark full">
+              <CheckCircle2 size={15} /> Done · re-export
+            </button>
+            <span className="sma-reveal">↗ Reveal Export</span>
+          </aside>
         </div>
       </div>
     </section>
@@ -359,24 +382,26 @@ function ChainItem({
   value,
   pct,
   on,
-  green,
+  accent = 'green',
 }: {
   icon: ReactNode
   label: string
   value?: string
   pct?: number
   on?: boolean
-  green?: boolean
+  accent?: 'green' | 'orange'
 }) {
   return (
     <div className={`sma-chain ${on ? 'on' : ''}`}>
-      <span className="ic">{icon}</span>
+      <span className={`ic ${accent}`}>{icon}</span>
       <span className="lb">{label}</span>
-      {pct != null && (
+      {pct != null ? (
         <span className="sma-slider" aria-hidden="true">
-          <span className={`fill ${green ? 'g' : ''}`} style={{ width: `${pct}%` }} />
+          <span className={`fill ${accent}`} style={{ width: `${pct}%` }} />
           <span className="knob" style={{ left: `calc(${pct}% - 7px)` }} />
         </span>
+      ) : (
+        <span className="sma-slider-spacer" />
       )}
       {value ? <span className="vl">{value}</span> : <span className="vl muted" />}
       <span className={`chk ${on ? 'on' : ''}`}>{on ? '✓' : ''}</span>
