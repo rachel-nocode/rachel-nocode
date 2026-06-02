@@ -319,10 +319,16 @@ h2 {
   animation: glow-mint 2.4s ease-in-out infinite;
 }
 
+.app-chip--nota {
+  border-color: #ff4d97;
+  animation: glow-pink 2.4s ease-in-out infinite;
+}
+
 .app-chip--tap:hover,
 .app-chip--maxx:hover,
 .app-chip--save:hover,
-.app-chip--goalie:hover { animation-play-state: paused; }
+.app-chip--goalie:hover,
+.app-chip--nota:hover { animation-play-state: paused; }
 
 @keyframes glow-orange {
   0%, 100% {
@@ -368,11 +374,23 @@ h2 {
   }
 }
 
+@keyframes glow-pink {
+  0%, 100% {
+    border-color: #ff8ab8;
+    box-shadow: var(--shadow), 0 0 0 1px rgba(255, 77, 151, .25), 0 0 16px -4px rgba(255, 77, 151, .45);
+  }
+  50% {
+    border-color: #ff4d97;
+    box-shadow: var(--shadow), 0 0 0 1px rgba(255, 77, 151, .6), 0 0 30px -2px rgba(255, 77, 151, .8);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .app-chip--tap,
   .app-chip--maxx,
   .app-chip--save,
-  .app-chip--goalie { animation: none; }
+  .app-chip--goalie,
+  .app-chip--nota { animation: none; }
 }
 
 .app-chip img {
