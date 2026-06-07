@@ -1,0 +1,68 @@
+---
+// Public URL: /clip4x
+import App from '../../clip4x/App.tsx';
+
+const site = 'https://rachelnocode.com';
+const canonicalUrl = `${site}/clip4x`;
+const ogImage = `${site}/clip4x/demo.png`;
+const title = 'Clip4X — Turn long videos into scroll-stopping clips, locally';
+const description =
+  'Clip4X is a free, open-source clipping app that runs fully on your machine via the Codex CLI. Finds trending moments, cuts 9:16 and 1:1 clips, adds hook titles and captions — all export-ready.';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta name="theme-color" content="#08080b" />
+    <style is:global>
+      html, body { margin: 0; padding: 0; background: #08080b; }
+    </style>
+    <link rel="icon" type="image/png" href="/clip4x/icon.png" />
+    <link rel="apple-touch-icon" href="/clip4x/icon.png" />
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'SoftwareApplication',
+        name: 'Clip4X',
+        applicationCategory: 'MultimediaApplication',
+        operatingSystem: 'macOS, Linux, Windows',
+        url: canonicalUrl,
+        image: ogImage,
+        description,
+        offers: {
+          '@type': 'Offer',
+          price: '0',
+          priceCurrency: 'USD',
+          description: 'Free and open source',
+        },
+      })}
+    />
+  </head>
+  <body>
+    <App client:load />
+  </body>
+</html>
