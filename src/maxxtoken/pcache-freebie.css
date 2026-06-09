@@ -311,11 +311,4 @@
     grid-template-columns: 1fr;
   }
 
-  .freebies-tabs {
-    flex-wrap: wrap;
-  }
-
-  .freebies-tab {
-    flex: 1 1 auto;
-  }
 }

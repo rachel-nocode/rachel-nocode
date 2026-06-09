@@ -18,27 +18,23 @@ import {
   ChevronDown,
   CircleSlash,
   Code2,
-  FileText,
   Flame,
   Gauge,
-  MessageCircle,
   Moon,
   RefreshCw,
   Search,
   Settings,
   Sun,
-  Share2,
   Sparkles,
   Star,
-  Target,
-  TerminalSquare,
   TrendingUp,
   Wifi,
   Zap,
   type LucideIcon,
 } from 'lucide-react'
 import './App.css'
-import { Freebies } from './Freebies'
+
+import { Blog } from './Blog'
 import { POLAR_CHECKOUT_URL, PolarDownloadButton } from './PolarDownloadButton'
 
 type ModelBurn = {
@@ -190,45 +186,6 @@ const providers: Provider[] = [
   },
 ]
 
-type Idea = {
-  icon: LucideIcon
-  title: string
-  meta: string
-  value: string
-  status: string
-}
-
-const ideas: Idea[] = [
-  {
-    icon: FileText,
-    title: 'Turn a messy note into a launch post',
-    meta: 'Claude · 20-30 min',
-    value: '$3.60',
-    status: 'streaming',
-  },
-  {
-    icon: TerminalSquare,
-    title: 'Ask Codex to write 3 tests before reset',
-    meta: 'Codex · 15-25 min',
-    value: '$2.80',
-    status: 'queued',
-  },
-  {
-    icon: Target,
-    title: 'Scope one half-baked app idea into a build plan',
-    meta: 'Kimi · 25 min',
-    value: '$4.20',
-    status: 'next',
-  },
-  {
-    icon: MessageCircle,
-    title: 'Brainstorm 5 product experiments you can run this week',
-    meta: 'ChatGPT · 15 min',
-    value: '$2.10',
-    status: 'ready',
-  },
-]
-
 const stackProviders = [
   'Claude',
   'ChatGPT',
@@ -320,10 +277,6 @@ function money(value: number) {
   return `$${Math.round(value).toLocaleString('en-US')}`
 }
 
-function moneyExact(value: number) {
-  return `$${value.toFixed(2)}`
-}
-
 function clampPct(value: number) {
   return Math.max(0, Math.min(98, value))
 }
@@ -343,13 +296,14 @@ function App() {
   const [theme, setTheme] = useState<'dark' | 'light'>('dark')
   const [spendTick, setSpendTick] = useState(0)
   const [demoOpen, setDemoOpen] = useState(true)
-  const [demoView, setDemoView] = useState<'usage' | 'stream'>('usage')
   const [now, setNow] = useState(() => new Date())
   const [demoRight, setDemoRight] = useState<number | null>(null)
   const [showThankYou, setShowThankYou] = useState(false)
-  const [pageView, setPageView] = useState<'landing' | 'freebies'>(() =>
-    typeof window !== 'undefined' && window.location.hash === '#freebies' ? 'freebies' : 'landing',
-  )
+  const [pageView, setPageView] = useState<'landing' | 'blog'>(() => {
+    if (typeof window === 'undefined') return 'landing'
+    if (window.location.hash === '#blog') return 'blog'
+    return 'landing'
+  })
 
   const heroRef = useRef<HTMLElement>(null)
   const pillRef = useRef<HTMLButtonElement>(null)
@@ -389,15 +343,16 @@ function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }, [])
 
-  const goFreebies = useCallback(() => {
-    setPageView('freebies')
-    window.history.replaceState(null, '', '#freebies')
+  const goBlog = useCallback(() => {
+    setPageView('blog')
+    window.history.replaceState(null, '', '#blog')
     window.scrollTo({ top: 0 })
   }, [])
 
   useEffect(() => {
     const syncView = () => {
-      setPageView(window.location.hash === '#freebies' ? 'freebies' : 'landing')
+      const { hash } = window.location
+      setPageView(hash === '#blog' ? 'blog' : 'landing')
     }
     window.addEventListener('hashchange', syncView)
     return () => window.removeEventListener('hashchange', syncView)
@@ -481,10 +436,6 @@ function App() {
   // Footer numbers are fixed for the marketing demo (match the design mock).
   const totals = { spent: 163, left: 439 }
 
-  const mostFreeProvider = animatedProviders.reduce((mostFree, provider) =>
-    provider.leftPct > mostFree.leftPct ? provider : mostFree,
-  )
-
   return (
     <div className="page" id="top">
       <nav className="os-menubar" aria-label="Main">
@@ -519,7 +470,7 @@ function App() {
                 goLanding('#nudges')
               }}
             >
-              Missions
+              Optimize
             </a>
             <a
               className="osm-menu"
@@ -533,10 +484,10 @@ function App() {
             </a>
             <button
               type="button"
-              className={`osm-menu osm-menu-btn ${pageView === 'freebies' ? 'is-active' : ''}`}
-              onClick={goFreebies}
+              className={`osm-menu osm-menu-btn ${pageView === 'blog' ? 'is-active' : ''}`}
+              onClick={goBlog}
             >
-              Freebies
+              Blog
             </button>
             <a className="osm-menu" href="https://x.com/rachelnocode">
               Contact
@@ -569,8 +520,8 @@ function App() {
         </div>
       </nav>
 
-      {pageView === 'freebies' ? (
-        <Freebies onDownload={startDownload} />
+      {pageView === 'blog' ? (
+        <Blog onDownload={startDownload} />
       ) : (
         <>
       <section className="hero" ref={heroRef}>
@@ -583,7 +534,7 @@ function App() {
             You paid for the tokens. <span className="accent">Go spend them.</span>
           </h1>
           <p>
-            MaxxToken shows the dollars you have left and turns them into work before the timer runs out.
+            MaxxToken tracks every AI plan from your menu bar — dollars spent, dollars left, and which limits reset next, so nothing you paid for expires unused.
           </p>
           <div className="hero-actions">
             <PolarDownloadButton onClick={startDownload} className="btn-primary lg" iconSize={16} />
@@ -609,8 +560,8 @@ function App() {
             <div className="hero-feature">
               <Code2 size={16} aria-hidden="true" />
               <div>
-                <strong>Built for people who ship</strong>
-                <span>Missions that hit</span>
+                <strong>Finds wasted money</strong>
+                <span>Cache leaks, dormant plans, expiring caps</span>
               </div>
             </div>
           </div>
@@ -625,7 +576,6 @@ function App() {
           {demoOpen ? (
             <div className="demo-pop-wrap">
               <span className="demo-caret" aria-hidden="true" />
-              {demoView === 'usage' ? (
                 <div className="popover-demo usage-popover nx">
                   {/* Header */}
                   <div className="nx-head">
@@ -636,14 +586,6 @@ function App() {
                       </span>
                     </div>
                     <div className="nx-head-actions">
-                      <button
-                        className="nx-icon-btn"
-                        type="button"
-                        aria-label="Open Idea Stream"
-                        onClick={() => setDemoView('stream')}
-                      >
-                        <span className="nx-diamond" aria-hidden="true" />
-                      </button>
                       <button className="nx-icon-btn" type="button" aria-label="Settings">
                         <Settings size={14} />
                       </button>
@@ -791,83 +733,6 @@ function App() {
                     </button>
                   </footer>
                 </div>
-              ) : (
-                <div className="popover-demo stream-popover">
-                  <div className="pd-dot-grid" aria-hidden="true" />
-                  <div className="stream-head">
-                    <button
-                      className="stream-back"
-                      type="button"
-                      onClick={() => setDemoView('usage')}
-                    >
-                      ‹ Back
-                    </button>
-                    <span>Idea Stream</span>
-                    <span className="stream-live">
-                      <RefreshCw size={13} aria-hidden="true" />
-                      live
-                    </span>
-                  </div>
-                  <div className="forge-target">
-                    Routed to <strong>{mostFreeProvider.name}</strong> · {mostFreeProvider.leftPct}%
-                    free
-                  </div>
-                  <div className="stream-stage">
-                    <article className="stream-card">
-                      <div className="stream-card-top">
-                        <span className="stream-title">Launch-post machine</span>
-                        <span className="stream-source">CLAUDE</span>
-                      </div>
-                      <p>
-                        Drop in a rough voice note. It returns a launch thread, landing-page
-                        bullets, and a next-build prompt.
-                      </p>
-                      <div className="stream-meter">
-                        <span style={{ width: `${Math.min(100, spendStep * 3)}%` }} />
-                      </div>
-                      <div className="stream-meta">
-                        <span>Complexity ●●○</span>
-                        <span>Build ~20m</span>
-                        <span>{moneyExact(spendStep * 0.42 + 1.8)} spent</span>
-                      </div>
-                    </article>
-                    <div className="idea-list">
-                      {ideas.map((idea, index) => {
-                        const Icon = idea.icon
-
-                        return (
-                          <div
-                            className="idea-row"
-                            key={idea.title}
-                            style={{ '--stream-delay': `${index * 170}ms` } as CSSProperties}
-                          >
-                            <span className="idea-icon">
-                              <Icon size={15} aria-hidden="true" />
-                            </span>
-                            <span className="idea-body">
-                              <strong>{idea.title}</strong>
-                              <small>{idea.meta}</small>
-                            </span>
-                            <span className="idea-value">
-                              <strong>+ {idea.value}</strong>
-                              <small>{idea.status}</small>
-                            </span>
-                          </div>
-                        )
-                      })}
-                    </div>
-                  </div>
-                  <div className="stream-actions">
-                    <button type="button" className="stream-skip">
-                      Skip
-                    </button>
-                    <button type="button" className="stream-start">
-                      <Share2 size={14} aria-hidden="true" />
-                      Start build
-                    </button>
-                  </div>
-                </div>
-              )}
             </div>
           ) : (
             <button
@@ -904,8 +769,8 @@ function App() {
           <span className="step-icon">
             <Sparkles size={20} aria-hidden="true" />
           </span>
-          <h3>Ideas to tokenmaxx</h3>
-          <p>Build missions routed to the plan you underuse most.</p>
+          <h3>Optimizes and alerts</h3>
+          <p>Flags cache leaks and dormant plans, and pings you before tokens expire.</p>
         </article>
       </section>
 
@@ -958,7 +823,7 @@ function App() {
               goLanding('#nudges')
             }}
           >
-            Missions
+            Optimize
           </a>
           <a
             href="#what-is-tokenmaxxing"
@@ -969,9 +834,6 @@ function App() {
           >
             Tokenmaxxing
           </a>
-          <button type="button" className="footer-link-btn" onClick={goFreebies}>
-            Freebies
-          </button>
           <PolarDownloadButton onClick={startDownload} className="footer-dl" showIcons={false} />
         </nav>
         <div className="footer-social">

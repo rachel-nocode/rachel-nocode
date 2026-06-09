@@ -1,0 +1,80 @@
+/* Scoped blog styles — converted from blog-cut-agent-context.html.
+   Everything lives under .mt-blog so the article's own design tokens never
+   leak into the rest of the MaxxToken landing page. */
+.mt-blog {
+  --bg: #0d0f0c;
+  --surface: #141711;
+  --surface2: #1a1e16;
+  --border: #2a2f24;
+  --text: #eef1e8;
+  --text2: #b9c0ad;
+  --text3: #7e8770;
+  --lime: #88be2e;
+  --lime-dim: #a2b079;
+  --warn: #e0b341;
+  --mono: "SF Mono", ui-monospace, "JetBrains Mono", Menlo, Consolas, monospace;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
+  background: transparent;
+  color: var(--text);
+  font-family: var(--sans);
+  line-height: 1.6;
+  font-size: 17px;
+  padding-bottom: 60px;
+}
+.mt-blog * { box-sizing: border-box; }
+.mt-blog .wrap { max-width: 780px; margin: 0 auto; padding: 0 22px; }
+.mt-blog a { color: var(--lime); text-decoration: none; }
+.mt-blog a:hover { text-decoration: underline; }
+.mt-blog .kicker { font-family: var(--mono); font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--lime); margin: 46px 0 14px; }
+.mt-blog h1 { font-size: 40px; line-height: 1.12; letter-spacing: -.8px; margin: 0 0 18px; font-weight: 800; }
+.mt-blog .lede { font-size: 20px; color: var(--text2); line-height: 1.5; margin: 0 0 22px; }
+.mt-blog .byline { font-family: var(--mono); font-size: 12px; color: var(--text3); letter-spacing: .4px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 12px 0; margin: 0 0 40px; display: flex; gap: 16px; flex-wrap: wrap; }
+.mt-blog h2 { font-size: 26px; letter-spacing: -.4px; margin: 48px 0 8px; font-weight: 800; }
+.mt-blog h2 .num { font-family: var(--mono); color: var(--lime); font-size: 16px; margin-right: 10px; font-weight: 700; }
+.mt-blog h3 { font-size: 18px; margin: 30px 0 6px; font-weight: 700; }
+.mt-blog h3 .stars { font-family: var(--mono); font-size: 12px; color: var(--text3); font-weight: 400; margin-left: 8px; }
+.mt-blog p { margin: 14px 0; }
+.mt-blog .muted { color: var(--text2); }
+.mt-blog .callout { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--lime); border-radius: 4px; padding: 16px 18px; margin: 26px 0; }
+.mt-blog .callout.warn { border-left-color: var(--warn); }
+.mt-blog .callout .label { font-family: var(--mono); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--lime); margin-bottom: 6px; }
+.mt-blog .callout.warn .label { color: var(--warn); }
+.mt-blog .callout p { margin: 6px 0; font-size: 15.5px; color: var(--text2); }
+.mt-blog pre { background: #0a0c09; border: 1px solid var(--border); border-radius: 6px; padding: 14px 16px; overflow-x: auto; font-family: var(--mono); font-size: 13.5px; line-height: 1.55; color: var(--text); margin: 14px 0; }
+.mt-blog pre .c { color: var(--text3); }
+.mt-blog code { font-family: var(--mono); font-size: .86em; background: var(--surface2); padding: 1.5px 6px; border-radius: 3px; color: var(--lime-dim); }
+.mt-blog pre code { background: none; padding: 0; color: inherit; }
+.mt-blog table { width: 100%; border-collapse: collapse; margin: 22px 0; font-size: 14.5px; }
+.mt-blog th, .mt-blog td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.mt-blog th { font-family: var(--mono); font-size: 11px; letter-spacing: .6px; text-transform: uppercase; color: var(--text3); font-weight: 600; }
+.mt-blog td .win { font-family: var(--mono); color: var(--lime); font-weight: 700; white-space: nowrap; }
+.mt-blog .tier { display: inline-block; font-family: var(--mono); font-size: 10px; letter-spacing: .5px; text-transform: uppercase; font-weight: 700; padding: 2px 7px; border-radius: 3px; border: 1px solid var(--border); color: var(--text3); vertical-align: middle; }
+.mt-blog .tier.hi { color: var(--lime); border-color: var(--lime); }
+.mt-blog .tier.mid { color: var(--warn); border-color: var(--warn); }
+.mt-blog .tool { border: 1px solid var(--border); border-radius: 6px; padding: 2px 20px 6px; margin: 18px 0; background: var(--surface); }
+.mt-blog .tooltype { font-family: var(--mono); font-size: 11px; color: var(--text3); letter-spacing: .4px; text-transform: uppercase; }
+.mt-blog .cta { background: linear-gradient(160deg, var(--surface2), var(--surface)); border: 1px solid var(--border); border-radius: 8px; padding: 30px; margin: 54px 0 20px; text-align: center; }
+.mt-blog .cta h2 { margin: 0 0 10px; }
+.mt-blog .cta p { color: var(--text2); max-width: 520px; margin: 0 auto 20px; }
+.mt-blog .btn { display: inline-block; background: var(--lime); color: #0a0c09; font-family: var(--mono); font-weight: 700; letter-spacing: .4px; padding: 12px 22px; border-radius: 5px; font-size: 14px; }
+.mt-blog .btn:hover { text-decoration: none; filter: brightness(1.08); }
+.mt-blog .blog-footnote { border-top: 1px solid var(--border); margin-top: 50px; padding: 30px 0 0; color: var(--text3); font-size: 13px; font-family: var(--mono); }
+.mt-blog hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+/* Index view: card grid + back link */
+.mt-blog .blog-index-title { margin: 46px 0 14px; }
+.mt-blog .blog-back { display: inline-flex; align-items: center; gap: 6px; margin: 40px 0 0; background: none; border: none; color: var(--lime); font-family: var(--mono); font-size: 13px; letter-spacing: .4px; cursor: pointer; padding: 0; }
+.mt-blog .blog-back:hover { text-decoration: underline; }
+.mt-blog .blog-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 18px; margin: 32px 0 20px; }
+.mt-blog .blog-card { display: flex; flex-direction: column; gap: 10px; text-align: left; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 22px 22px 24px; cursor: pointer; transition: border-color .15s ease, transform .15s ease, background .15s ease; font-family: var(--sans); }
+.mt-blog .blog-card:hover { border-color: var(--lime); transform: translateY(-2px); background: var(--surface2); }
+.mt-blog .blog-card-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--lime); }
+.mt-blog .blog-card-title { font-size: 21px; line-height: 1.2; letter-spacing: -.4px; font-weight: 800; color: var(--text); }
+.mt-blog .blog-card-excerpt { font-size: 14.5px; line-height: 1.5; color: var(--text2); }
+.mt-blog .blog-card-meta { margin-top: 4px; font-family: var(--mono); font-size: 11px; letter-spacing: .4px; color: var(--text3); }
+@media (max-width: 560px) {
+  .mt-blog .blog-cards { grid-template-columns: 1fr; }
+  .mt-blog h1 { font-size: 31px; }
+  .mt-blog .lede { font-size: 18px; }
+  .mt-blog h2 { font-size: 22px; }
+  .mt-blog { font-size: 16px; }
+}
