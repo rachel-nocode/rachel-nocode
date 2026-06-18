@@ -189,52 +189,26 @@ const providers: Provider[] = [
 const stackProviders = [
   'Claude',
   'ChatGPT',
-  'OpenAI API',
-  'Azure OpenAI',
+  'OpenCode',
+  'OpenCode Go',
   'Cursor',
   'Copilot',
   'Windsurf',
   'Kiro',
-  'OpenCode',
-  'OpenCode Go',
-  'Alibaba',
-  'Alibaba Token Plan',
-  'Augment',
-  'JetBrains AI',
-  'Warp',
-  'ElevenLabs',
-  'Kilo',
   'Kimi',
+  'Grok',
+  'Gemini',
+  'Amp',
+  'Antigravity',
+  'OpenAI API',
   'Moonshot / Kimi API',
   'Kimi K2',
-  'Doubao',
-  'Grok',
-  'Groq',
-  'Gemini',
   'OpenRouter',
-  'Perplexity',
   'Mistral',
-  'Codebuff',
-  'Command Code',
-  'Crof',
-  'Venice',
   'DeepSeek',
-  'Deepgram',
-  'StepFun',
-  'LLM Proxy',
   'Ollama',
-  'Abacus AI',
-  'Amp',
-  'Droid / Factory',
-  'Antigravity',
-  'MiniMax',
-  'Manus',
   'Vertex AI',
-  'Synthetic',
-  'Xiaomi MiMo',
   'AWS Bedrock',
-  'z.ai',
-  'T3 Chat',
 ] as const
 
 const stackAccents = [
@@ -546,8 +520,8 @@ function App() {
             <div className="hero-feature">
               <Zap size={16} aria-hidden="true" />
               <div>
-                <strong>Pay what you want</strong>
-                <span>One-time, name your price</span>
+                <strong>$20, one-time</strong>
+                <span>Lifetime updates, no subscription</span>
               </div>
             </div>
             <div className="hero-feature">
@@ -769,14 +743,14 @@ function App() {
           <span className="step-icon">
             <Sparkles size={20} aria-hidden="true" />
           </span>
-          <h3>Optimizes and alerts</h3>
-          <p>Flags cache leaks and dormant plans, and pings you before tokens expire.</p>
+          <h3>Coaches you daily</h3>
+          <p>A daily verdict on what each chat cost and what to do differently — plus alerts before tokens expire.</p>
         </article>
       </section>
 
       <section className="stack" id="pricing">
         <h2>Your stack</h2>
-        <p className="stack-lede">48 providers tracked — and counting.</p>
+        <p className="stack-lede">22 providers tracked — and counting.</p>
         <StackMarquee />
       </section>
 
@@ -786,7 +760,7 @@ function App() {
             <img src="/maxxtoken/icon-1.png" alt="MaxxToken receipt icon" />
             <div className="viral-card-copy">
               <strong>Download MaxxToken</strong>
-              <span>Pay what you want. One-time. Private by design.</span>
+              <span>$20 one-time. Lifetime updates. Private by design.</span>
             </div>
             <div className="viral-downloads">
               <PolarDownloadButton onClick={startDownload} className="btn-primary" iconSize={16} />
